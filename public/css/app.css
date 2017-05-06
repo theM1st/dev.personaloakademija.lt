@@ -1,0 +1,1002 @@
+body {
+    color: #002060;
+    font-size: 12px;
+}
+
+a {
+    color: #0C1E42;
+}
+
+.header {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.header .container {
+    position: relative;
+}
+
+.header nav {
+    margin-top: 30px;
+}
+
+.header .navbar-toggle {
+    border: 1px solid #ccc;
+}
+
+.header .navbar-toggle .icon-bar {
+    background-color: #ccc;
+}
+
+.header .navbar-nav > li {
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    width: 100px;
+}
+
+.header .navbar-nav > li > a {
+    border: 1px solid #ffffff;
+    display: inline-block;
+    font-weight: bold;
+    padding: 10px;
+    vertical-align: middle;
+    line-height: normal;
+}
+
+.header .navbar-nav > li > a:hover,
+.header .navbar-nav > li > a:focus,
+.header .navbar-nav > li.open > a {
+    background-color: transparent;
+    border: 1px solid #ccc;
+}
+
+.header .navbar-right > li {
+    width: auto;
+}
+
+.header .navbar-nav > li.register > a,
+.header .navbar-nav > li.administration > a {
+    background-color: #58b397;
+    color: #ffffff;
+}
+
+.header .user-navigation {
+    float: right;
+    margin: 6px 0;
+}
+
+.header .user-navigation .btn-default {
+    font-size: 12px;
+    padding: 4px 12px;
+    white-space: nowrap;
+}
+
+.header .top-nav {
+    float: right;
+    vertical-align: top;
+}
+
+.header .top-nav > ul > li {
+    display: inline-block;
+}
+
+.header .top-nav > ul > li > a, .header .top-nav > ul > li > a:hover {
+    background-color: transparent;
+    color: #fff;
+    display: table-cell;
+    font-size: 14px;
+    font-weight: 600;
+    height: 61px;
+    margin: 0 auto;
+    padding: 10px 15px;
+    text-align: center;
+    vertical-align: middle;
+    width: 100px;
+}
+
+.header .top-nav ul li:first-child a,
+.header .top-nav ul li:first-child + li a {
+    color: #3c6686;
+}
+#carousel {
+    width: 800px;
+    height: 300px;
+    position: relative;
+    margin: 0 auto;
+}
+#carousel img {
+    display: none; /* hide images until carousel prepares them */
+    cursor: pointer; /* not needed if you wrap carousel items in links */
+}
+
+.header #carousel .carouselNav {
+    position: absolute;
+    top: 120px;
+    width: 100%;
+}
+
+.header #carousel .carouselNav a {
+    background: url(../assets/img/prev-btn.png) no-repeat scroll center center;
+    color: #262626;
+    display: block;
+    height: 39px;
+    line-height: 39px;
+    overflow: hidden;
+    position: absolute;
+    text-align: center;
+    text-decoration: none;
+    text-indent: -99999px;
+    width: 39px;
+    z-index: 9;
+}
+
+.header #carousel .carouselNav a.carouselNext {
+    background: url(../assets/img/next-btn.png) no-repeat scroll center center;
+    right: 0;
+}
+
+.header .social-links {
+    float: right;
+    margin-top: -30px;
+}
+
+.header .social-links a {
+    display: block;
+    float: left;
+    width: 25px;
+    height: 25px;
+    margin: 0 2px;
+    text-indent: -99999px;
+}
+
+.header .social-links .facebook {
+    background: url(../assets/img/facebook.png) no-repeat;
+}
+
+.header .social-links .linkedIn {
+    background: url(../assets/img/linkedin.png) no-repeat;
+}
+
+.login-menu {
+    font-weight: bold;
+    float: right;
+    margin: 6px 0;
+}
+
+.login-menu .nav {
+    float: right;
+}
+
+.login-menu .nav > li > a {
+    background: none !important;
+    color: #333;
+    padding: 4px 15px;
+}
+
+.my-cv .tools {
+    position: relative;
+    margin-bottom: 20px;
+}
+.my-cv .tools > span {
+    position: absolute;
+    right: 10px;
+}
+.my-cv .tools .cv-save-btn,  .my-cv .tools .cv-print-btn {
+    color: #002060;
+    font-size: 20px;
+    margin-top: -2px;
+}
+
+.my-cv .section h5 {
+    font-size: 13px;
+    font-weight: bold;
+    margin: 10px 15px;
+}
+
+.my-cv .section .section-title {
+    background: #ccc;
+    padding: 0 5px;
+    margin-bottom: 2px;
+}
+
+.my-cv .section .section-title h4 {
+    margin: 6px;
+}
+
+.my-cv .section .sub-items {
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+
+.my-cv .section .sub-items.first {
+    border: none;
+    padding-top: 0;
+}
+
+.my-cv .section .section-group {
+    margin-bottom: 2px;
+}
+
+.my-cv .section .section-edit {
+    display: block;
+    color: #333;
+    font-size: 16px;
+    margin-top: 5px;
+    text-align: right;
+}
+
+.my-cv .section .section-label {
+    text-align: right;
+    font-weight: 700;
+    padding-bottom: 3px;
+    padding-top: 3px;
+}
+
+.my-cv .section .section-value {
+    padding-bottom: 3px;
+    padding-top: 3px;
+}
+
+.my-cv .section .language-level-block {
+}
+
+.my-cv .section .language-level-name {
+    display: block;
+    font-size: 12px;
+    text-align: center;
+}
+
+.my-cv .section .language-level {
+    display: block;
+    text-align: center;
+}
+
+.my-cv .section .delete-cvdocument,
+.cv-edit .delete-cvdocument {
+    color: #C20606;
+    margin-left: 20px;
+}
+
+.admin-offers .offer-logo {
+    width: 13%;
+}
+
+.admin-offers .offer-name {
+    width: 50%;
+}
+
+.admin-offers .offer-name .offer-hot {
+    display: inline-block;
+    padding-right: 5px;
+    vertical-align: top;
+}
+
+.admin-offers .offer-name .offer-title {
+    display: inline-block;
+    padding: 2px 0 5px 0;
+    width: 90%;
+}
+
+.admin-offers .offer-inactive .offer-name a {
+    color: #ff0000;
+}
+
+.admin-offers .offer-inactive .offer-inactive-sign {
+    color: #ff0000;
+    display: inline-block;
+    font-size: 14px;
+    padding-right: 5px;
+    vertical-align: top;
+}
+
+
+.admin-offers .offer-city {
+    text-align: center;
+}
+
+.show-offer {
+    font-size: 14px;
+}
+
+.show-offer .offer-row {
+    margin-bottom: 20px;
+}
+
+.show-offer .offer-name h1 {
+    margin-bottom: 10px;
+}
+
+.show-offer .offer-name span {
+    font-weight: normal;
+    font-size: 14px;
+}
+
+.show-offer .offer-valid {
+    padding-bottom: 30px;
+    color: #777;
+}
+
+.show-offer label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0;
+}
+
+.show-offer .offer-company-logo {
+    float: left;
+    text-align: center;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+.show-offer .offer-company-name {
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.cvs .table {
+    border-collapse: separate;
+    border-spacing: 0 5px;
+}
+
+.cvs .table td {
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    vertical-align: middle;
+    height: 80px;
+    line-height: 20px;
+}
+
+.cvs .table td.last {
+    border-right: none;
+}
+
+.offers .table .offer-logo {
+    width: 17%;
+}
+
+.offers .table .offer-name {
+    width: 65%;
+}
+
+.offers .table .offer-name .offer-hot {
+    display: inline-block;
+    padding-right: 5px;
+    vertical-align: top;
+}
+
+.offers .table .offer-name .offer-title {
+    display: inline-block;
+    padding: 5px 0;
+    width: 90%;
+}
+
+.offers .table .offer-city {
+    text-align: center;
+}
+
+.offer-candidates-index table {
+    border: none;
+}
+
+.offer-candidates-index table tr .actions {
+    text-align: right;
+}
+
+.offer-candidates-index table tr td {
+    font-size: 14px;
+}
+
+.offer-candidates-index table tr th {
+    border: none;
+}
+
+.offer-candidates-index table tr th .btn-link {
+    padding-top: 0;
+    padding-bottom: 5px;
+    color: #333;
+}
+
+.offer-candidates-index table tr td.date {
+    width: 15%;
+}
+
+.offer-candidates-index table tr td.name {
+    width: 28%;
+}
+
+.offer-candidates-index table tr td.actions .candidate-rating {
+    display: inline-block;
+    margin-left: 10px;
+    width: 140px;
+}
+
+.offer-candidates-index table tr td.actions .candidate-comment {
+    font-size: 13px;
+    text-align: left;
+}
+
+.offer-candidates-index table tr td.actions .candidate-rating .slider .ui-slider-handle {
+    cursor: pointer;
+}
+
+.offer-candidates-index table tr td.actions .candidate-rating .slider .ui-slider-handle span {
+    color: #777;
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.offer-candidates-index table tr td.actions .candidate-rating .slider .ui-slider-range {
+    background: #eeeeee;
+}
+
+.offer-candidates-index table tr td input {
+    margin-left: 10px;
+}
+
+.offer-candidates-index table tr td .btn-link {
+    padding: 0;
+    margin-left: 10px;
+    color: #777;
+    font-size: 22px;
+}
+
+.cvs h1 span {
+    font-size: 16px;
+}
+
+.cvs .table td {
+    line-height: 20px;
+}
+
+.cvs .table td.cv-logo {
+    width: 90px;
+    border-right: none;
+    vertical-align: top;
+}
+
+.cvs .table td.cv-name {
+    color: #333;
+    vertical-align: top;
+}
+
+.cvs .table td.cv-name a {
+    color: #333;
+    display: block;
+}
+
+.cvs .table td.cv-name a:hover {
+    text-decoration: none;
+}
+
+.cvs .table td.cv-created {
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.cvs .table td .cv-city {
+    font-size: 14px;
+}
+
+.cvs .table td .cv-description {
+    display: block;
+}
+
+.cv-info h4 {
+    background: #E8E8E8;
+    margin-bottom: 10px;
+    padding: 4px 6px;
+}
+
+.cv-info .cv-logo {
+    position: absolute;
+    right: 20px;
+}
+
+.cv-info .cv-logo img {
+    width: 100px;
+}
+
+.cv-info .cv-description {
+    padding: 0 10px;
+}
+
+.cv-info .row {
+}
+
+.cv-info .cv-label {
+    font-weight: bold;
+    text-align: right;
+    margin-bottom: 3px;
+}
+
+.cv-info .cv-row {
+    margin-bottom: 3px;
+}
+
+.cv-info .cv-photo {
+    text-align: center;
+}
+
+.cv-info .study-item, .cv-info .work-experience-item {
+    margin-bottom: 15px;
+}
+
+.cv-info .study-item:last-child, .cv-info .work-experience-item:last-child {
+    margin: 0;
+}
+
+.cv-info .cv-institution-name .label, .cv-info .cv-company-name .label {
+    font-size: 100%;
+}
+
+.cv-info .cv-study-specialty, .cv-info .cv-work-position, .cv-info .cv-participation-name {
+
+}
+
+.cv-info .cv-study-grade {
+     color: #777777;
+ }
+
+.cv-info .cv-study-course {
+    color: #777777;
+}
+
+.cv-info .cv-foreign-language-name {
+}
+
+.cv-info .cv-language-level {
+    color: #777777;
+    margin-bottom: 0;
+}
+
+.cv-info .cv-knowledge-name {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.cv-info .cv-knowledge-name .label {
+    font-size: 100%;
+}
+
+.cv-info .cv-knowledge-extra {
+    color: #777777;
+    margin-top: 5px;
+}
+
+.cv-info .cv-knowledge-level {
+    color: #777777;
+}
+
+.offer-from hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.cities optgroup {
+    text-align: center;
+    font-weight: normal;
+}
+
+.languages-form .form-group {
+    position: relative;
+}
+
+.languages-form .language-clone-area {
+    margin-top: 20px;
+}
+
+.cloned-item {
+    position: relative;
+}
+
+.remove-clone-item, .remove-multiple-item {
+    color: #c00000;
+    z-index: 10;
+    display: block;
+    font-size: 14px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.remove-clone-item:hover, .remove-multiple-item:hover {
+    color: #c00000;
+}
+
+.cv-edit .form {
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+
+.cv-edit .form.first {
+    border: none;
+    padding-top: 0;
+}
+
+.cv-edit .cv-navigation h3 {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.cv-edit .cv-navigation .row {
+    margin: 0 -10px;
+}
+
+.cv-edit .cv-navigation .row > div {
+    font-size: 11px;
+    padding: 0 10px;
+}
+
+.cv-edit .cv-navigation .row > div a {
+    display: block;
+    padding: 3px 0;
+}
+
+.cv-edit .cv-navigation .row > div a.active {
+    font-weight: bold;
+}
+
+.cv-edit .cv-navigation .row > div span.disabled {
+    color: #777;
+    cursor: not-allowed;
+    display: block;
+    padding: 3px 0;
+}
+
+.cv-edit form {
+    padding: 2px 0 5px 0;
+}
+
+.cv-edit form .glyphicon-info-sign {
+    cursor: help;
+    font-size: 18px;
+    margin: 5px 0;
+}
+
+.cv-edit form .form-group {
+    margin-bottom: 2px;
+}
+
+.cv-edit form .control-label {
+    font-weight: normal;
+}
+
+.cv-edit .btn-primary {
+    width: 100%;
+}
+
+.cv-edit .btn-secondary {
+    width: 100%;
+}
+
+.cv-edit .section.active .section-title {
+    background-color: #004367;
+    color: #ffffff;
+}
+
+.cv-edit .section .section-title {
+    border: 1px solid #004367;
+    margin-bottom: 3px;
+    padding: 0 5px;
+}
+
+.cv-edit .section .section-title h4 {
+    margin: 5px;
+}
+
+.cv-edit .section .section-title .section-no-data{
+    color: green;
+    display: block;
+    margin: 5px;
+    text-align: right;
+}
+
+.cv-edit .section .section-edit {
+    color: #333;
+    display: block;
+    font-size: 16px;
+    margin-top: 4px;
+    text-align: center;
+}
+
+.cv-edit #experienceForms h4 {
+    font-weight: bold;
+    margin: 15px;
+}
+
+.form-group {
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.form-group .btn-group {
+    width: 100%;
+}
+
+.form-group .btn-group .multiselect {
+    position: relative;
+    width: 100%;
+    text-align: left;
+    white-space: normal;
+    padding-right: 15px;
+}
+
+.form-group .btn-group .multiselect .caret {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+}
+
+.multiselect-container > li {
+    font-size: 12px;
+}
+
+.it-knowledges .form-group {
+   margin-bottom: 0;
+}
+
+.it-knowledges .form-group .checkbox {
+    padding-top: 5px;
+}
+
+.extra-info .form-group .control-input {
+    display: inline-block;
+    padding-top: 3px;
+}
+
+.extra-info .form-group .checkbox {
+    display: inline-block;
+    padding-right: 15px;
+    vertical-align: top;
+}
+
+.extra-info .form-group .checkbox label {
+    font-weight: bold;
+}
+
+.input-xs {
+    font-size: 11px;
+    height: 25px;
+    padding: 1px 3px;
+}
+
+a.list-group-item, a.list-group-item:hover, a.list-group-item:focus {
+    background: none;
+    border: none;
+    color: #337ab7;
+    font-weight: bold;
+    font-size: 11px;
+    padding: 6px 0;
+    text-align: right;
+    text-decoration: underline;
+}
+
+.registration-form .rules {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: right;
+    text-decoration: underline;
+}
+
+.registration-form .btn-primary,
+.offer-from .btn-primary {
+    width: 100%;
+}
+
+.login-form .btn-secondary,
+.offer-from .btn-secondary{
+    width: 100%;
+}
+
+.login-form .btn-link {
+    color: #333;
+    margin-top: 10px;
+}
+
+.footer {
+    margin-top: 50px;
+}
+
+.footer .menu {
+    text-align: center;
+}
+
+.footer .menu li {
+    display: inline;
+    list-style: none;
+}
+
+.footer .menu li > a {
+    color: #333333;
+    padding: 10px 15px;
+    font-weight: bold;
+}
+
+.footer .menu li > a:hover {
+    text-decoration: none;
+}
+
+.okaycv {
+    color: #337ab7;
+    font-weight: bold;
+}
+
+.okaycv span {
+    color: #239A58;
+}
+
+h1 {
+    margin-bottom: 20px;
+    margin-top: 0px;
+    font-size: 22px;
+    padding-left: 5px;
+    padding-bottom: 4px;
+    text-align: center;
+}
+
+h4 {
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+form label.required:after {
+    content: '*';
+    color: #ff0000;
+    font-size: 85%;
+    vertical-align: top;
+    margin-left: 2px;
+}
+
+form .form-rules {
+    font-size: 85%;
+}
+
+.form-horizontal .control-label {
+    padding-top: 5px;
+}
+
+select.input-sm {
+    height: 26px;
+    padding: 5px 5px;
+}
+
+input.input-sm {
+    height: 26px;
+}
+
+.help-block {
+    font-size: 11px
+}
+
+.alert-success a {
+    color: #3c763d;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.btn-primary, .btn-danger {
+
+}
+
+.btn-primary:focus, .btn-primary:hover {
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+
+.btn-secondary, .btn-secondary:focus, .btn-secondary:hover {
+     background-color: #58b397;
+     border-color: #428973;
+     color: #fff;
+}
+
+.btn-tertiary, .btn-tertiary:focus, .btn-tertiary:hover {
+     background-color: #f2631b;
+     border-color: #f2631b;
+     color: #fff;
+     padding: 3px 12px;
+ }
+
+.btn-grey, .btn-grey:focus, .btn-grey:hover {
+    background-color: #777;
+    border-color: #777;
+    color: #fff;
+}
+
+.okaycv-ad a {
+    display: inline-block;
+    margin: 0 auto 10px auto;
+}
+
+table div.dropdown:hover > ul.dropdown-menu {
+    display: block;
+    margin-top: -2px
+}
+
+#offer-form #logo {
+    visibility: hidden;
+}
+
+#offer-form .nav-tabs {
+    margin-bottom: 10px;
+}
+
+#offer-form .tab-content {
+
+    margin-bottom: 10px;
+    /*/margin-top: -62px;*/
+}
+
+#offer-form .form-group {
+    padding: 0 5px;
+}
+
+@media print {
+    .page-content {
+        width: 100% !important;
+    }
+    h4 {
+        -webkit-print-color-adjust: exact;
+        background-color: #e8e8e8 !important;
+        padding: 4px 6px !important;
+    }
+    .cv-info .label-info {
+        background-color: #5bc0de !important;
+        -webkit-print-color-adjust: exact;
+    }
+}
+
+@media only screen and (max-width : 1200px) {
+    .header .navbar-brand {
+        width: 140px;
+    }
+}
+
+@media only screen and (max-width : 992px) {
+    .header .navbar-brand {
+        width: 100px;
+    }
+    .header .navbar-nav > li {
+        width: 100%;
+    }
+    .header #carousel {
+        overflow: hidden;
+        width: 100%;
+    }
+
+}
+
+@media only screen and (max-width : 768px) {
+    .header .navbar-header {
+        min-height: 80px;
+    }
+    .header .navbar-brand {
+        margin-top: -40px;
+        padding: 0;
+        width: 100%;
+    }
+    .header .navbar-brand img {
+        margin: 0 auto;
+        width: 80px;
+    }
+    .header .navbar-collapse {
+        margin-top: 0;
+    }
+    .header .navbar-nav > li {
+        height: auto;
+        line-height: 1;
+        width: 100%;
+    }
+    .header .navbar-nav > li > a {
+        width: 50%;
+    }
+    .header nav {
+        border-bottom: 1px solid #ccc;
+    }
+}
+

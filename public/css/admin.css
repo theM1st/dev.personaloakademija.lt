@@ -1,0 +1,91 @@
+.header {
+    background-color: #004265;
+    color: #ffffff;
+}
+
+.header .navbar-brand {
+    color: #ffffff;
+    font-size: 13px;
+}
+
+.header .navbar-right a {
+    background-color: transparent !important;
+    color: #ffffff;
+}
+
+.header .user-panel .user-name {
+    border-right: 1px solid #ffffff;
+    display: inline-block;
+    padding-right: 10px;
+}
+
+.main .content-header h2 {
+    float: left;
+    margin-top: 0;
+}
+
+.main .content-header .btn-create {
+    float: right;
+}
+
+.side .nav .list-group .list-group-item.active {
+    background-color: #004265;
+}
+
+.tab-content {
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    padding: 15px;
+}
+
+.sortable-list ul {
+    list-style-type: none;
+}
+.sortable-list ul:first-child {
+    padding-left: 0;
+}
+.sortable-list ul > li > .item-name {
+    background: #f4f4f4 none repeat scroll 0 0;
+    border-left: 2px solid #e6e7e8;
+    line-height: 34px;
+    margin-bottom: 2px;
+    padding: 5px 10px;
+}
+.sortable-list ul > li > .item-name.inactive .text {
+    color: #ff0000;
+}
+.sortable-list ul > li > div > small.label {
+    font-size: 10px;
+    font-weight: 400;
+    margin-left: 10px;
+}
+.sortable-list ul li .btn-group {
+    float: right;
+}
+.sortable-list ul li .btn-group .btn-link {
+    color: #333;
+    display: block;
+    padding: 3px 20px;
+    text-align: center;
+    width: 100%;
+}
+.sortable-list ul li .btn-group .btn-link:hover {
+    text-decoration: none;
+    background-color: #f5f5f5;
+}
+.sortable .ui-sortable-handle {
+    cursor: move;
+}
+.sortable .ui-sortable-helper {
+}
+.sortable .ui-sortable-helper .btn-group {
+    visibility: hidden;
+}
+.sortable .ui-sortable-placeholder {
+    border: 1px dotted #080808;
+    visibility: visible !important;
+}
+.sortable .sort-handle {
+    padding: 0 8px;
+}
