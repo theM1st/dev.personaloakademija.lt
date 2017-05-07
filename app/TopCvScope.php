@@ -8,6 +8,11 @@ class TopCvScope extends Model
 {
     public $timestamps = false;
 
+    public function categories()
+    {
+        return $this->hasMany('App\TopCvScopeCategory', 'scope_id');
+    }
+
     public static function getScopes($list=false)
     {
         $data = \Cache::remember('TopCvScope.getScopes', 60, function(){

@@ -92,10 +92,17 @@ Route::group(['prefix' => 'administration', 'middleware' => 'worker'], function 
     Route::get('{id}/move/{direction}', 'BannersController@move');
 
     Route::get('topCvs/getScopeCategories', 'TopCvsAdminController@getScopeCategories');
+    Route::get('topCvs/{cvId}/language/{study}/remove', 'TopCvsAdminController@removeStudy')
+        ->name('topCvs.removeStudy');
     Route::get('topCvs/{cvId}/language/{language}/remove', 'TopCvsAdminController@removeLanguage')
         ->name('topCvs.removeLanguage');
+    Route::get('topCvs/{cvId}/work/{work}/remove', 'TopCvsAdminController@removeWork')
+        ->name('topCvs.removeWork');
     Route::resource('topCvs', 'TopCvsAdminController');
 });
+
+Route::get('top-cv/{id}', 'TopCvsController@show')->name('topCv.show');
+Route::get('top-cv', 'TopCvsController@index')->name('topCv.index');
 
 Route::get('/', 'PageController@index');
 Route::get('p/{pageSlug}', ['as' => 'page.show', 'uses' => 'PageController@show']);

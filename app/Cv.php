@@ -297,7 +297,7 @@ class Cv extends Model {
         foreach ($filterItems as $item)
         {
             //$val = (Input::exists($item)) ? Input::get($item) : (!empty($session[$item]) ? $session[$item] : null);
-            $val = (Input::exists($item)) ? Input::get($item) :  null;
+            $val = (request()->has($item)) ? request()->get($item) :  null;
 
             if ($val)
             {

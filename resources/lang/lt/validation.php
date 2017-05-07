@@ -144,6 +144,9 @@ return [
         'cv_status' => [
             'required' => 'Nurodykite CV statusą',
         ],
+		'scope_category_id' => [
+			'required' => 'Nurodykite srities kategoriją',
+		],
         'institution_name' => [
             'required' => 'Parašykite švietimo įstaigos pavadinimą',
         ],

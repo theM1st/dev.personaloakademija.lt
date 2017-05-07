@@ -8,13 +8,14 @@ use App\Gender;
 use App\TopCvScope;
 use App\TopCvScopeCategory;
 use App\TopCvLanguage;
+use App\TopCvStudy;
+use App\TopCvWork;
 use App\TopCvProfile;
 
 class TopCvsAdminController extends Controller
 {
     public function index()
     {
-
     }
 
     public function create()
@@ -23,17 +24,19 @@ class TopCvsAdminController extends Controller
         $cities = City::getCitiesList(array());
         $scopes = TopCvScope::getScopes(true);
 
-        //$cvLanguages = TopCvProfile->languages()->get();
-
         $cvLanguages[0] = new TopCvLanguage;
+        $cvStudies[0] = new TopCvStudy;
+        $cvWorks[0] = new TopCvWork;
 
         return view('admin.topCvs.create', [
             'genders' => $genders,
-            'cities' => $cities,
+            'cities' => array_slice($cities, 0, 5, true),
             'scopes' => $scopes,
             'languages' => TopCvLanguage::getLanguages(true),
             'languageLevels' => TopCvLanguage::getLevels(),
             'cvLanguages' => $cvLanguages,
+            'cvStudies' => $cvStudies,
+            'cvWorks' => $cvWorks,
         ]);
     }
 
@@ -42,14 +45,17 @@ class TopCvsAdminController extends Controller
         $cv = new TopCvProfile;
         $cv->fill($request->all());
 
-        $location = route('topCvs.edit', $cv->id);
+
 
         if ($request->has('activate')) {
             $cv->active = 1;
-            $location = route('topCvs.index');
         }
 
         $cv->save();
+
+        $location = ($cv->active) ?
+            $location = route('topCv.index') :
+            $location = route('topCv.show', $cv->id);
 
         return [ 'location' => $location ];
     }
@@ -62,15 +68,19 @@ class TopCvsAdminController extends Controller
         $cities = City::getCitiesList(array());
         $scopes = TopCvScope::getScopes(true);
         $cvLanguages = $cv->languages()->get();
+        $cvStudies = $cv->studies()->get();
+        $cvWorks = $cv->works()->get();
 
         return view('admin.topCvs.edit', [
             'cv' => $cv,
             'genders' => $genders,
-            'cities' => $cities,
+            'cities' => array_slice($cities, 0, 5, true),
             'scopes' => $scopes,
             'languages' => TopCvLanguage::getLanguages(true),
             'languageLevels' => TopCvLanguage::getLevels(),
             'cvLanguages' => $cvLanguages,
+            'cvStudies' => ($cvStudies->count() ? $cvStudies : [ new TopCvStudy ]),
+            'cvWorks' => ($cvWorks->count() ? $cvWorks : [ new TopCvWork ]),
         ]);
     }
 
@@ -79,23 +89,41 @@ class TopCvsAdminController extends Controller
         $cv = TopCvProfile::findOrFail($id);
         $cv->fill($request->all());
 
-        $location = route('topCvs.edit', $cv->id) . '?updated=1';
+        $location = route('topCv.show', $cv->id) . '?updated=1';
 
         if ($request->get('action') == 'activate' || $cv->active) {
             $cv->active = 1;
-            $location = route('topCvs.index');
+            $location = route('topCv.index');
         }
 
         $cv->save();
 
         return [ 'location' => $location ];
     }
-    
+
+    public function removeStudy($cvId, $id)
+    {
+        $cv = TopCvProfile::findOrFail($cvId);
+
+        $cv->studies()->whereId($id)->delete();
+
+        return back();
+    }
+
     public function removeLanguage($cvId, $id)
     {
         $cv = TopCvProfile::findOrFail($cvId);
 
         $cv->languages()->whereId($id)->delete();
+
+        return back();
+    }
+
+    public function removeWork($cvId, $id)
+    {
+        $cv = TopCvProfile::findOrFail($cvId);
+
+        $cv->works()->whereId($id)->delete();
 
         return back();
     }

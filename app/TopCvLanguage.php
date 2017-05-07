@@ -8,6 +8,16 @@ class TopCvLanguage extends Model
 {
     public $timestamps = false;
 
+    public function firstLanguage()
+    {
+        return $this->belongsTo('App\Language', 'first_language_id');
+    }
+
+    public function foreignLanguage()
+    {
+        return $this->belongsTo('App\Language', 'foreign_language_id');
+    }
+
     public static function getLevels()
     {
         $data = collect([
@@ -33,5 +43,25 @@ class TopCvLanguage extends Model
         }
 
         return $data;
+    }
+
+    public function getSpeakingAttribute()
+    {
+        if ($this->speaking_level) {
+            $levels = TopCvLanguage::getLevels();
+            return isset($levels[$this->speaking_level]) ? $levels[$this->speaking_level] : '';
+        }
+
+        return '';
+    }
+
+    public function getWritingAttribute()
+    {
+        if ($this->writing_level) {
+            $levels = TopCvLanguage::getLevels();
+            return isset($levels[$this->writing_level]) ? $levels[$this->writing_level] : '';
+        }
+
+        return '';
     }
 }

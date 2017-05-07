@@ -24,6 +24,7 @@ class CreateTopCvProfilesTable extends Migration
             $table->integer('scope_id')->index()->unsigned();
             $table->integer('scope_category_id')->index()->unsigned();
             $table->enum('cv_status', ['active', 'passive'])->default('active');
+            $table->string('cv_name')->nullable();
             $table->text('about')->nullable();
             $table->text('cv_tags')->nullable();
             $table->text('cv_skills')->nullable();

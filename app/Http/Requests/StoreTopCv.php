@@ -26,15 +26,17 @@ class StoreTopCv extends FormRequest
         return [
 
             'name' => 'required',
+            'scope_id' => 'required|integer',
+            'scope_category_id' => 'required|integer',
             /*
            'gender' => 'required',
            'age' => 'required|integer',
            'city_id' => 'required|integer',
            'telephone' => 'required',
            'email' => 'required|email',
-           'scope_id' => 'required|integer',
-           'scope_category_id' => 'required|integer',
+
            'cv_status' => 'required',
+           'cv_name' => 'required',
            */
         ];
     }

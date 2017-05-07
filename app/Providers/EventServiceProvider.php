@@ -11,6 +11,8 @@ use App\Banner;
 use App\Page;
 use App\TopCvProfile;
 use App\TopCvLanguage;
+use App\TopCvStudy;
+use App\TopCvWork;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -77,6 +79,8 @@ class EventServiceProvider extends ServiceProvider
 
         TopCvProfile::saved(function($cv) {
             $cv->languages()->delete();
+            $cv->studies()->delete();
+            $cv->works()->delete();
 
             $foreignLanguages = request()->get('foreign_language_id');
 
@@ -99,6 +103,27 @@ class EventServiceProvider extends ServiceProvider
                     $language->speaking_level = request()->get('speaking_level')[$k];
                     $language->writing_level = request()->get('writing_level')[$k];
                     $cv->languages()->save($language);
+                }
+            }
+
+            if ($institutions = request()->get('institution')) {
+                foreach ($institutions as $k => $name) {
+                    $study = new TopCvStudy;
+                    $study->institution = $name;
+                    $study->study_date = request()->get('study_date')[$k];
+                    $study->specialty = request()->get('specialty')[$k];
+                    $cv->studies()->save($study);
+                }
+            }
+
+            if ($workplaces = request()->get('workplace')) {
+                foreach ($workplaces as $k => $name) {
+                    $work = new TopCvWork;
+                    $work->workplace = $name;
+                    $work->work_date = request()->get('work_date')[$k];
+                    $work->work_position = request()->get('work_position')[$k];
+                    $work->work_task = request()->get('work_task')[$k];
+                    $cv->works()->save($work);
                 }
             }
         });

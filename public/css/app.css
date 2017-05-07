@@ -601,7 +601,7 @@ a {
     display: block;
     font-size: 14px;
     position: absolute;
-    right: 0;
+    right: -18px;
     top: 0;
 }
 
@@ -934,6 +934,114 @@ table div.dropdown:hover > ul.dropdown-menu {
 
 #offer-form .form-group {
     padding: 0 5px;
+}
+.top-cv-form .form-group {
+    margin-left: 0;
+    margin-right: 0;
+}
+.top-cv .filters {
+    margin-bottom: 20px;
+}
+.top-cv .filters .city-filter {
+    text-align: right;
+}
+.top-cv .filters .city-filter label {
+    font-weight: normal;
+    padding-right: 10px;
+    text-align: right;
+    width: 80px;
+}
+.top-cv .table tr td {
+    text-align: center;
+    vertical-align: middle;
+}
+.top-cv .table tr td.inactive a {
+    color: darkred;
+}
+.top-cv-profile .btn-bookmark-cv {
+    color: #002060;
+}
+.top-cv-profile .btn-bookmark-cv .fa-star-o {
+    font-size: 16px;
+}
+.top-cv-profile .top-block {
+    margin-bottom: 20px;
+}
+.top-cv-profile .top-block .label {
+    border: 1px solid #e8e8e8;
+    color: #002060;
+    font-size: 12px;
+    font-weight: normal;
+    padding: 4px 10px;
+}
+.top-cv-profile .top-block .middle,
+.top-cv-profile .top-block .right {
+    padding-top: 20px;
+}
+.top-cv-profile .top-block .middle .side {
+    border-right: 1px solid #e8e8e8;
+    display: inline-block;
+    text-align: right;
+    padding: 0 15px;
+    vertical-align: top;
+}
+.top-cv-profile .top-block .middle .side:last-child {
+    border: none;
+    text-align: left;
+}
+.top-cv-profile .top-block .cv-tags .t {
+    font-weight: bold;
+    margin: 5px 0;
+}
+.top-cv-profile .top-block .cv-tags .label {
+    display: block;
+    text-align: left;
+    width: 100%;
+}
+.top-cv-profile .middle-block {
+    margin-bottom: 20px;
+}
+.top-cv-profile h2 {
+    font-size: 13px;
+    font-weight: bold;
+    margin: 10px 0;
+    text-align: center;
+}
+.top-cv-profile .table tr td {
+    border-top: none;
+    padding: 10px;
+    vertical-align: middle;
+}
+.top-cv-profile .table tr td.col1 {
+    background-color: #e8e8e8;
+    font-weight: bold;
+    text-align: center;
+    width: 150px;
+}
+.top-cv-profile .table tr td.col2 {
+    padding-left: 0;
+    padding-right: 0;
+}
+.top-cv-profile .table tr td.col2 .table {
+    margin: 0;
+}
+.top-cv-profile .table tr td.col2 .table .separator {
+    border-top: 1px solid #e8e8e8;
+}
+.top-cv-profile .table tr td.col2 .table .separator:first-child {
+  border: none;
+}
+.top-cv-profile .table table .foreign-language-title td {
+    border-top: 1px solid #e8e8e8;
+}
+.top-cv-profile .table tr td.col2 .salary span {
+    display: inline-block;
+}
+.top-cv-profile .table tr td.col2 .salary span + span::before {
+    content: '/';
+}
+.top-cv-profile .table table tr td {
+    padding: 5px 15px;
 }
 
 @media print {
