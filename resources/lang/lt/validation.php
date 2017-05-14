@@ -359,6 +359,12 @@ return [
 		'cf_question' => [
 			'required' => 'Nurodykite jūsų klausimą',
 		],
+        'message' => [
+            'required' => 'Parašykite žinutės tekstą',
+        ],
+        'age' => [
+            'required' => 'Nurodykite amžių',
+        ]
 	],
 
 	/*

@@ -43,7 +43,6 @@
                 <div>{{ $cv->about }}</div>
             </div>
         @endif
-
         @if ($cv->studies->count())
             <table class="table">
                 <tr>
@@ -129,35 +128,36 @@
             </table>
         @endif
 
-        <table class="table">
-            <tr>
-                <td class="col1">
-                    Profesiniai įgūdžiai<br>
-                    Mokymai<br>
-                    Sertifikatai<br>
-                </td>
-                <td class="col2">
-                    <table class="table">
-                        @if ($cv->cv_skills)
-                            <tr class="separator">
-                                <td>{{ $cv->cv_skills }}</td>
-                            </tr>
-                        @endif
-                        @if ($cv->cv_trainings)
-                            <tr class="separator">
-                                <td>{{ $cv->cv_trainings }}</td>
-                            </tr>
-                        @endif
-                        @if ($cv->cv_certificates)
-                            <tr class="separator">
-                                <td>{{ $cv->cv_certificates }}</td>
-                            </tr>
-                        @endif
-                    </table>
-                </td>
-            </tr>
-        </table>
-
+        @if ($cv->cv_skills || $cv->cv_trainings || $cv->cv_certificates)
+            <table class="table">
+                <tr>
+                    <td class="col1">
+                        Profesiniai įgūdžiai<br>
+                        Mokymai<br>
+                        Sertifikatai<br>
+                    </td>
+                    <td class="col2">
+                        <table class="table">
+                            @if ($cv->cv_skills)
+                                <tr class="separator">
+                                    <td>{{ $cv->cv_skills }}</td>
+                                </tr>
+                            @endif
+                            @if ($cv->cv_trainings)
+                                <tr class="separator">
+                                    <td>{{ $cv->cv_trainings }}</td>
+                                </tr>
+                            @endif
+                            @if ($cv->cv_certificates)
+                                <tr class="separator">
+                                    <td>{{ $cv->cv_certificates }}</td>
+                                </tr>
+                            @endif
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        @endif
         <table class="table">
             <tr>
                 <td class="col1">
@@ -203,19 +203,87 @@
             </tr>
         </table>
         <div class="clearfix tools">
-            <a href="" class="btn btn-link btn-bookmark-cv">
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-                Įtraukti kandidatą į tinkamų sąrašą
+            <a href="#" class="btn btn-link btn-bookmark-cv"
+               onclick="event.preventDefault();
+                document.getElementById('bookmark-form').submit();">
+                @if (!auth()->check() || !auth()->user()->bookmarks->contains($cv->id))
+                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                    <span>Įtraukti kandidatą į tinkamų sąrašą</span>
+                @else
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <span>Ištraukti kandidatą iš tinkamų sąrašo</span>
+                @endif
             </a>
-            <button class="btn btn-secondary">Užsakyti tinkamus CV</button>
+            <button class="btn btn-secondary" data-toggle="modal" data-target="#order-cv" style="margin-left:40px">
+                Užsakyti tinkamus CV
+            </button>
             <a href="{{ route('topCv.index') }}" class="btn btn-default pull-right">Grįžti į CV sąrašą</a>
+
+            {{ Form::open(['route' => ['topCv.addBookmark', $cv->id], 'id' => 'bookmark-form']) }}
+            {{ Form::close() }}
         </div>
         @if (auth()->check() && auth()->user()->isAdminWorker())
             <div class="text-center">
                 <hr>
                 <a href="{{ route('topCvs.edit', $cv->id) }}" class="btn btn-primary">Redaguoti</a>
+                {{ Form::open(['route' => ['topCvs.destroy', $cv->id], 'method' => 'delete', 'style' => 'display:inline']) }}
+                    {{ Form::submit('Trinti', ['class' => 'btn btn-danger', 'onclick' => "return confirm('Ar tikrai?')"]) }}
+                {{ Form::close() }}
             </div>
         @endif
     </div>
 
+    <div class="modal fade" id="order-cv" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Tinkamų kandidatų užklausos forma</h4>
+                </div>
+                <div class="modal-body">
+                    @if (auth()->check() && auth()->user()->bookmarks->count())
+                        {{ Form::open(['route'=>'topCv.order', 'id'=>'bookmark-form', 'class'=>'ajax-form']) }}
+                            <div class="form-group">
+                                <p>Jūsų pažymėti kandidatai</p>
+                                <p>
+                                    @foreach (auth()->user()->bookmarks as $k => $item)
+                                        <span class="label label-primary">{{ $item->id }}</span>
+                                    @endforeach
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                {{ Form::label('company_name', 'Jūsų įmonės pavadinimas', ['class' => 'required']) }}
+                                {{ Form::text('company_name', null, ['class' => 'form-control input-sm']) }}
+                            </div>
+                            <div class="form-group">
+                                {{ Form::label('name', 'Jūsų vardas, pavardė', ['class' => 'required']) }}
+                                {{ Form::text('name', null, ['class' => 'form-control input-sm']) }}
+                            </div>
+                            <div class="form-group">
+                                {{ Form::label('work_position', 'Pareigos (vadovaujančios)', ['class' => 'required']) }}
+                                {{ Form::text('work_position', null, ['class' => 'form-control input-sm']) }}
+                            </div>
+                            <div class="form-group">
+                                {{ Form::label('email', 'El. paštas (tik darbinis)', ['class' => 'required']) }}
+                                {{ Form::text('email', null, ['class' => 'form-control input-sm']) }}
+                            </div>
+                            <div class="form-group">
+                                {{ Form::label('telephone', 'Telefono nr.') }}
+                                {{ Form::text('telephone', null, ['class' => 'form-control input-sm']) }}
+                            </div>
+                            <div class="form-group">
+                                {{ Form::label('message', 'Žinutės tekstas', ['class' => 'required']) }}
+                                {{ Form::textarea('message', null, ['class' => 'form-control input-sm', 'rows' => 3]) }}
+                            </div>
+                            <div class="form-group text-center">
+                                {{ Form::submit('Išsiųsti', ['class' => 'btn btn-secondary']) }}
+                            </div>
+                        {{ Form::close() }}
+                    @else
+                        <p class="text-center">Jūsų tinkamų kandidatų sąrašas tuščias.</p>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

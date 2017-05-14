@@ -44,6 +44,7 @@ class RouteServiceProvider extends ServiceProvider
 	private function bootRouteModelBinders()
 	{
 		Route::model('page', Page::class);
+		Route::model('topCvProfile', TopCvProfile::class);
 		Route::bind('pageSlug', function($slug) {
 			return Page::where('slug_'.\Lang::getLocale(), $slug)->first();
 		});

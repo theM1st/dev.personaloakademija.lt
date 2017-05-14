@@ -124,6 +124,7 @@ $().ready(function(){
 
     $('.multiselect').multiselect({
         nonSelectedText: '-- Pasirinkti --',
+        allSelectedText: 'Visi pažymėti',
         buttonClass: 'btn btn-default btn-sm',
         maxHeight: 300,
         maxButtonTitle: 35,
@@ -134,7 +135,6 @@ $().ready(function(){
                 options, // will contain all <option/> within <select/>
                 selected, // will contain all <option(::selected)/> within <select/>
                 multiselect; // will contain the generated ".multiselect-container"
-            console.log(multiselect);
             // get all options
             options = parent.find('option');
 
@@ -343,6 +343,7 @@ function ajaxForm(obj, async)
 		};
 
 		$.ajax(ajaxOptions).success(function(response) {
+
 			$('[type=submit]', o).attr('disabled', false);
 			$('.alert', o).remove();
 
@@ -418,7 +419,7 @@ function ajaxForms(container, state)
 
 function scopeCategoriesTrigger()
 {
-    $('#scope_id').change(function() {
+    $('#scope_id').on('change', function() {
         var id = $(this).val();
 
         $.get('/administration/topCvs/getScopeCategories', { id: id }, function(data) {
@@ -430,9 +431,10 @@ function scopeCategoriesTrigger()
             $.each(data, function(val, text) {
                 options[options.length] = new Option(text, val);
             });
-            console.log(data);
         });
     });
+
+    $("#scope_id").trigger('change');
 }
 
 function printCv(url) {

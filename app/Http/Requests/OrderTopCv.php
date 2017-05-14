@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTopCv extends FormRequest
+class OrderTopCv extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,16 +25,12 @@ class StoreTopCv extends FormRequest
     {
         return [
 
+            'company_name' => 'required',
             'name' => 'required',
-            'gender' => 'required',
-            'age' => 'required|integer',
-            'city_id' => 'required|integer',
-            'telephone' => 'required',
+            'work_position' => 'required',
             'email' => 'required|email',
-            'scope_id' => 'required|integer',
-            'scope_category_id' => 'required|integer',
-            'cv_status' => 'required',
-            'cv_name' => 'required',
+            'telephone' => 'required',
+            'message' => 'required',
         ];
     }
 }

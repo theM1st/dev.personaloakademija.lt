@@ -20,7 +20,7 @@ class Cv extends Model {
      */
     protected $fillable = ['name', 'birthday', 'gender', 'email', 'telephone',
                            'practice_city_id', 'job_city_id', 'cv_status',
-                           'cv_name', 'cv_file', 'description', 'cv_tag', 'photo', 'state'];
+                           'cv_name', 'cv_file', 'description', 'cv_tag', 'photo', 'state', 'tags'];
 
     protected $dates = ['birthday'];
 
@@ -289,26 +289,18 @@ class Cv extends Model {
 
     public static function filter()
     {
-        $filterItems = array('cvType', 'cities', 'scopes', 'institutions', 'courses', 'age', 'gender', 'tag', 'cvOrder');
+        $filterItems = array('cvType', 'cities', 'scopes', 'institutions', 'courses', 'age', 'ageFrom', 'ageTo','genders', 'tags', 'cvOrder');
         $filter = array();
 
         $session = session('cvFilter');
 
-        foreach ($filterItems as $item)
-        {
-            //$val = (Input::exists($item)) ? Input::get($item) : (!empty($session[$item]) ? $session[$item] : null);
-            $val = (request()->has($item)) ? request()->get($item) :  null;
-
-            if ($val)
-            {
-                $filter[$item] = $val;
-                if ($item == 'age') {
-                    list($filter['age_from'], $filter['age_to']) = explode('-', $val);
-                }
+        foreach ($filterItems as $item) {
+            if (request()->has($item)) {
+                $filter[$item] = request()->get($item);
+            } else {
+                $filter[$item] = null;
             }
         }
-
-        //session(['cvFilter' => $filter]);
 
         return $filter;
     }

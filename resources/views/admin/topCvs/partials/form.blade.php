@@ -188,8 +188,8 @@
                 </button>
             </div>
             <div class="col-sm-5" style="padding-right: 0;">
-                {!! Form::label("cv_tags", 'Raktiniai žodžiai', ['class' => 'control-label']) !!}
-                {!! Form::textarea('cv_tags', old('cv_tags'), ['class' => 'form-control input-sm', 'placeholder' => 'Įrašyti', 'rows' => 3]) !!}
+                {!! Form::label("cv_tag", 'Raktiniai žodžiai', ['class' => 'control-label']) !!}
+                {!! Form::textarea('cv_tag', old('cv_tag'), ['class' => 'form-control input-sm', 'placeholder' => 'Įrašyti', 'rows' => 3]) !!}
             </div>
         </div>
     </div>

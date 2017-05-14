@@ -942,14 +942,43 @@ table div.dropdown:hover > ul.dropdown-menu {
 .top-cv .filters {
     margin-bottom: 20px;
 }
-.top-cv .filters .city-filter {
+.top-cv .filters .city-filter, .top-cv .filters .gender-filter {
     text-align: right;
 }
-.top-cv .filters .city-filter label {
+.top-cv .filters .city-filter label,
+.top-cv .filters .gender-filter label,
+.top-cv .filters .age-filter label,
+.top-cv .filters .scope-filter label {
     font-weight: normal;
     padding-right: 10px;
     text-align: right;
     width: 80px;
+}
+.top-cv .filters .age-filter label {
+    font-weight: normal;
+    display: inline-block;
+    width: 100px;
+}
+.top-cv .filters .age-filter .form-control {
+    display: inline-block;
+    width: 40px;
+}
+.top-cv .filters .scope-filter label {
+    width: 150px;
+}
+.top-cv .filters .scope-filter .form-group {
+    display: inline-block;
+    margin-bottom: 2px;
+    width: 200px;
+}
+.top-cv .filters .scope-filter .btn-group .multiselect {
+    text-align: center;
+}
+.top-cv .filters .scope-filter .btn-group .dropdown-menu {
+    min-width: 240px;
+}
+.top-cv .filters .scope-filter .btn-group label {
+    text-align: left;
 }
 .top-cv .table tr td {
     text-align: center;
@@ -961,8 +990,12 @@ table div.dropdown:hover > ul.dropdown-menu {
 .top-cv-profile .btn-bookmark-cv {
     color: #002060;
 }
-.top-cv-profile .btn-bookmark-cv .fa-star-o {
-    font-size: 16px;
+.top-cv-profile .btn-bookmark-cv .fa-star-o,
+.top-cv-profile .btn-bookmark-cv .fa-star
+{
+    color: orange;
+    font-size: 20px;
+    vertical-align: top;
 }
 .top-cv-profile .top-block {
     margin-bottom: 20px;

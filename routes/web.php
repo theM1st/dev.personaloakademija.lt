@@ -102,6 +102,12 @@ Route::group(['prefix' => 'administration', 'middleware' => 'worker'], function 
 });
 
 Route::get('top-cv/{id}', 'TopCvsController@show')->name('topCv.show');
+Route::post('top-cv/{topCvProfile}/addBookmark', 'TopCvsController@addBookmark')
+    ->middleware('auth')
+    ->name('topCv.addBookmark');
+Route::post('top-cv/order', 'TopCvsController@order')
+    ->middleware('auth')
+    ->name('topCv.order');
 Route::get('top-cv', 'TopCvsController@index')->name('topCv.index');
 
 Route::get('/', 'PageController@index');

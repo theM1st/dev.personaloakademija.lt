@@ -45,17 +45,13 @@ class TopCvsAdminController extends Controller
         $cv = new TopCvProfile;
         $cv->fill($request->all());
 
-
-
-        if ($request->has('activate')) {
+        if ($request->get('action') == 'activate') {
             $cv->active = 1;
         }
 
         $cv->save();
 
-        $location = ($cv->active) ?
-            $location = route('topCv.index') :
-            $location = route('topCv.show', $cv->id);
+        $location = $cv->active ? route('topCv.index') : route('topCv.show', $cv->id);
 
         return [ 'location' => $location ];
     }
@@ -99,6 +95,15 @@ class TopCvsAdminController extends Controller
         $cv->save();
 
         return [ 'location' => $location ];
+    }
+
+    public function destroy($id)
+    {
+        $cv = TopCvProfile::findOrFail($id);
+
+        $cv->delete();
+
+        return redirect()->route('topCv.index');
     }
 
     public function removeStudy($cvId, $id)

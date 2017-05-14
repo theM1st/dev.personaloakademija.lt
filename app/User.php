@@ -43,6 +43,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Offer');
     }
 
+    public function bookmarks()
+    {
+        return $this->belongsToMany('App\TopCvProfile', 'top_cv_bookmarks', 'user_id', 'cv_id');
+    }
+
     public static function isAdminWorker() {
         if (User::isAdmin() || User::isWorker()) {
             return true;

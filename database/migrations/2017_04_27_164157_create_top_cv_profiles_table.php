@@ -26,7 +26,7 @@ class CreateTopCvProfilesTable extends Migration
             $table->enum('cv_status', ['active', 'passive'])->default('active');
             $table->string('cv_name')->nullable();
             $table->text('about')->nullable();
-            $table->text('cv_tags')->nullable();
+            $table->text('cv_tag')->nullable();
             $table->text('cv_skills')->nullable();
             $table->text('cv_trainings')->nullable();
             $table->text('cv_certificates')->nullable();
@@ -37,6 +37,7 @@ class CreateTopCvProfilesTable extends Migration
             $table->string('salary')->nullable();
             $table->boolean('active')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
 
     }
