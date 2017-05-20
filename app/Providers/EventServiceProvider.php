@@ -126,11 +126,13 @@ class EventServiceProvider extends ServiceProvider
                         $work->work_date = request()->get('work_date')[$k];
                         $work->work_position = request()->get('work_position')[$k];
                         $work->work_task = request()->get('work_task')[$k];
+						if ($k == 0) {
+							$work->work_now = request()->get('work_now')[$k];
+						}
                         $cv->works()->save($work);
                     }
                 }
             }
         });
 	}
-
 }

@@ -87,6 +87,6 @@ class TopCvsController extends Controller
 
         });
 
-        return ['success' => 'Žinutė sėkmingai išsiųsta!'];
+        return ['success' => 'Žinutė sėkmingai išsiųsta. Su Jumis netrukus susisieks <strong>Personalo akademijos</strong> atstovas.'];
     }
 }

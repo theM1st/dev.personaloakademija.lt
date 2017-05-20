@@ -123,11 +123,43 @@ class TopCvProfile extends Model
     public static function getStatuses()
     {
         $statuses = [
-            'active' => 'CV aktyvus',
+            'active' => 'CV aktyvus (rekomenduojama)',
             'passive' => 'CV pasyvus'
         ];
 
         return $statuses;
+    }
+
+    public function getDiffDate($date, $now=false)
+    {
+        $date1 = $date2 = null;
+        if (strpos($date, '-') !== false) {
+            list($date1, $date2) = explode('-', $date);
+            $date1 = str_replace([' ', '.', '/'], '-', trim($date1));
+            $date2 = str_replace([' ', '.', '/'], '-', trim($date2));
+        } else {
+            $date1 = str_replace([' ', '.', '/'], '-', trim($date));
+        }
+
+        if (empty($date1)) {
+            return null;
+        }
+
+        if ($now) {
+            $date2 = new \DateTime();
+        } else {
+            if (!$date2) {
+                return null;
+            }
+            $date2 = new \DateTime($date2);
+        }
+
+        $date1 = new \DateTime($date1);
+        $diff = $date1->diff($date2);
+
+        $value = ($diff->y ? "$diff->y m. " : '') . ($diff->m ? "$diff->m mėn." : '');
+
+        return $value;
     }
 
     public function getGenderNameAttribute()

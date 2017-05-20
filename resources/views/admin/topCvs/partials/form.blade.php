@@ -56,7 +56,7 @@
         </div>
     </div>
     <div class="form-group">
-        {!! Form::label('cv_name', 'CV Pavadinimas', ['class' => 'control-label required', 'style' => 'display:block;margin-bottom:5px;text-align:center' ]) !!}
+        {!! Form::label('cv_name', 'CV Pavadinimas', ['class' => 'control-label', 'style' => 'display:block;margin-bottom:5px;text-align:center' ]) !!}
         <div>
             {!! Form::text('cv_name', old('cv_name'), ['class' => 'form-control input-sm', 'placeholder' => 'Įrašyti']) !!}
         </div>
@@ -84,7 +84,7 @@
                         {!! Form::text('institution[]', $item->institution, ['class' => 'form-control input-sm', 'placeholder' => 'Aukštojo mokslo įstaiga']) !!}
                     </div>
                     <div class="col-sm-4">
-                        {!! Form::text('specialty[]', $item->specialty, ['class' => 'form-control input-sm', 'placeholder' => 'Įgyta specialybė']) !!}
+                        {!! Form::text('specialty[]', $item->specialty, ['class' => 'form-control input-sm', 'placeholder' => 'Įgyta specialybė, mokslinis laipsnis']) !!}
                     </div>
                 </div>
             </div>
@@ -105,7 +105,12 @@
                 @endif
                 <div class="row" style="margin-bottom: 10px;">
                     <div class="col-sm-4">
-                        {!! Form::text('work_date[]', $item->work_date, ['class' => 'form-control input-sm', 'placeholder' => 'yyyy/mm - yyyy/mm']) !!}
+                        {!! Form::text('work_date[]', $item->work_date, ['class' => 'form-control pull-left input-sm', 'placeholder' => 'yyyy/mm - yyyy/mm', 'style' => 'width:auto']) !!}
+                        <span class="clone-ignore">
+                            <label class="pull-right" style="margin:4px 0">
+                                {{ Form::checkbox('work_now[]', 1, $item->work_now) }} iki dabar
+                            </label>
+                        </span>
                     </div>
                     <div class="col-sm-4">
                         {!! Form::text('workplace[]', $item->workplace, ['class' => 'form-control input-sm', 'placeholder' => 'Darbovietės pavadinimas']) !!}

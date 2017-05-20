@@ -1000,33 +1000,30 @@ table div.dropdown:hover > ul.dropdown-menu {
 .top-cv-profile .top-block {
     margin-bottom: 20px;
 }
-.top-cv-profile .top-block .label {
+.top-cv-profile .top-block .cv-id {
     border: 1px solid #e8e8e8;
     color: #002060;
     font-size: 12px;
     font-weight: normal;
     padding: 4px 10px;
 }
-.top-cv-profile .top-block .middle,
-.top-cv-profile .top-block .right {
-    padding-top: 20px;
+.top-cv-profile .top-block .table tr td.col1 {
+    background-color: transparent;
 }
-.top-cv-profile .top-block .middle .side {
+.top-cv-profile .top-block .table tr td.col2 .table .sub-col1 {
     border-right: 1px solid #e8e8e8;
-    display: inline-block;
     text-align: right;
-    padding: 0 15px;
-    vertical-align: top;
+    width: 50%;
 }
-.top-cv-profile .top-block .middle .side:last-child {
-    border: none;
+.top-cv-profile .top-block .table tr td.col2 .table .sub-col2 {
     text-align: left;
+    width: 50%;
 }
 .top-cv-profile .top-block .cv-tags .t {
     font-weight: bold;
     margin: 5px 0;
 }
-.top-cv-profile .top-block .cv-tags .label {
+.top-cv-profile .top-block .cv-tags span {
     display: block;
     text-align: left;
     width: 100%;
@@ -1055,6 +1052,15 @@ table div.dropdown:hover > ul.dropdown-menu {
     padding-left: 0;
     padding-right: 0;
 }
+.top-cv-profile .table tr td.col2 .label {
+    background-color: #58b397;
+    border-radius: 0;
+    display: block;
+    font-size: 100%;
+    font-weight: normal;
+    margin-top: 2px;
+    padding: 3px 6px;
+}
 .top-cv-profile .table tr td.col2 .table {
     margin: 0;
 }
@@ -1066,9 +1072,6 @@ table div.dropdown:hover > ul.dropdown-menu {
 }
 .top-cv-profile .table table .foreign-language-title td {
     border-top: 1px solid #e8e8e8;
-}
-.top-cv-profile .table tr td.col2 .salary span {
-    display: inline-block;
 }
 .top-cv-profile .table tr td.col2 .salary span + span::before {
     content: '/';

@@ -34,7 +34,7 @@
 
                             <ul class="dropdown-menu">
                                 <li><a href="{{action('OffersAdminController@index')}}">Darbo pasiūlymai</a></li>
-                                <li><a href="{{action('TopCvsAdminController@create')}}">Naujas Top CV</a></li>
+                                <li><a href="{{route('topCv.index')}}">Top CV bazė</a></li>
                                 <li><a href="{{action('BannersController@index')}}">Baneriai</a></li>
                                 @if (Auth::user()->isAdmin())
                                     <li><a href="{{action('AdminController@workers')}}">Darbuotojai</a></li>

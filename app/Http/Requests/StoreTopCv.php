@@ -34,7 +34,6 @@ class StoreTopCv extends FormRequest
             'scope_id' => 'required|integer',
             'scope_category_id' => 'required|integer',
             'cv_status' => 'required',
-            'cv_name' => 'required',
         ];
     }
 }

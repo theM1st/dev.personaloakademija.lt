@@ -98,6 +98,8 @@ Route::group(['prefix' => 'administration', 'middleware' => 'worker'], function 
         ->name('topCvs.removeLanguage');
     Route::get('topCvs/{cvId}/work/{work}/remove', 'TopCvsAdminController@removeWork')
         ->name('topCvs.removeWork');
+    Route::get('topCvs/{cvId}/pdf', 'TopCvsAdminController@pdf')
+        ->name('topCvs.pdf');
     Route::resource('topCvs', 'TopCvsAdminController');
 });
 

@@ -106,6 +106,30 @@ class TopCvsAdminController extends Controller
         return redirect()->route('topCv.index');
     }
 
+    public function pdf($id)
+    {
+        $cv = TopCvProfile::findOrFail($id);
+
+        $genders = Gender::getGendersList(array());
+        $cities = City::getCitiesList(array());
+        $scopes = TopCvScope::getScopes(true);
+        $cvLanguages = $cv->languages()->get();
+        $cvStudies = $cv->studies()->get();
+        $cvWorks = $cv->works()->get();
+
+        return \PDF::loadView('topCvs.pdf', [
+            'cv' => $cv,
+            'genders' => $genders,
+            'cities' => array_slice($cities, 0, 5, true),
+            'scopes' => $scopes,
+            'languages' => TopCvLanguage::getLanguages(true),
+            'languageLevels' => TopCvLanguage::getLevels(),
+            'cvLanguages' => $cvLanguages,
+            'cvStudies' => ($cvStudies->count() ? $cvStudies : [ new TopCvStudy ]),
+            'cvWorks' => ($cvWorks->count() ? $cvWorks : [ new TopCvWork ]),
+        ])->download('top_cv_'.$cv->id.'.pdf');
+    }
+
     public function removeStudy($cvId, $id)
     {
         $cv = TopCvProfile::findOrFail($cvId);

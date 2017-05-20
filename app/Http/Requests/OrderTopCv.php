@@ -29,7 +29,6 @@ class OrderTopCv extends FormRequest
             'name' => 'required',
             'work_position' => 'required',
             'email' => 'required|email',
-            'telephone' => 'required',
             'message' => 'required',
         ];
     }

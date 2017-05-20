@@ -12,6 +12,8 @@
     {!! Form::close() !!}
 
 @endsection
+@section('styles')
+@endsection
 @section('scripts')
     <script type="text/javascript">
         scopeCategoriesTrigger();

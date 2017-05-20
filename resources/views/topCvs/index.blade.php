@@ -55,6 +55,9 @@
                 </div>
             </div>
         </form>
+        <div style="margin-bottom: 20px">
+            <a href="{{action('TopCvsAdminController@create')}}" class="btn btn-primary">Naujas Top CV</a>
+        </div>
         <table class="table table-striped">
             @foreach($cvs as $item)
                 <tr>
