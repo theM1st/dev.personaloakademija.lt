@@ -49,9 +49,11 @@ class TopCvsAdminController extends Controller
             $cv->active = 1;
         }
 
+        $cv->cv_number = bin2hex(openssl_random_pseudo_bytes(4));
+
         $cv->save();
 
-        $location = $cv->active ? route('topCv.index') : route('topCv.show', $cv->id);
+        $location = $cv->active ? route('topCv.index') : route('topCv.show', $cv->cv_number);
 
         return [ 'location' => $location ];
     }
@@ -85,7 +87,7 @@ class TopCvsAdminController extends Controller
         $cv = TopCvProfile::findOrFail($id);
         $cv->fill($request->all());
 
-        $location = route('topCv.show', $cv->id) . '?updated=1';
+        $location = route('topCv.show', $cv->cv_number) . '?updated=1';
 
         if ($request->get('action') == 'activate' || $cv->active) {
             $cv->active = 1;
@@ -118,6 +120,7 @@ class TopCvsAdminController extends Controller
         $cvWorks = $cv->works()->get();
 
         return \PDF::loadView('topCvs.pdf', [
+            'withContacts' => true,
             'cv' => $cv,
             'genders' => $genders,
             'cities' => array_slice($cities, 0, 5, true),
@@ -161,7 +164,7 @@ class TopCvsAdminController extends Controller
     {
         $id = request()->get('id');
 
-        $categories = TopCvScopeCategory::whereScopeId($id)->get();
+        $categories = TopCvScopeCategory::whereScopeId($id)->orderBy('position')->get();
 
         return $categories->pluck('name', 'id');
     }

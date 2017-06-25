@@ -16,11 +16,11 @@ class TopCvProfile extends Model
      */
     protected $fillable = [
         'name', 'gender', 'age', 'city_id', 'telephone',
-        'email', 'scope_id', 'scope_category_id',
+        'email', 'scope_id',
         'cv_status', 'cv_name', 'about', 'cv_tag', 'cv_skills',
         'cv_trainings', 'cv_certificates', 'cv_info',
         'driving_license', 'driving_license_year',
-        'salary_trial', 'salary', 'active'
+        'salary_trial', 'salary', 'active', 'cv_base'
     ];
 
     protected $dates = ['deleted_at'];
@@ -40,6 +40,11 @@ class TopCvProfile extends Model
         return $this->hasMany('App\TopCvWork', 'cv_id');
     }
 
+    public function comments()
+    {
+        return $this->hasMany('App\TopCvComment', 'cv_id');
+    }
+
     public function city()
     {
         return $this->belongsTo('App\City');
@@ -53,6 +58,11 @@ class TopCvProfile extends Model
     public function category()
     {
         return $this->belongsTo('App\TopCvScopeCategory', 'scope_category_id');
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany('App\TopCvScopeCategory', 'top_cv_category', 'cv_id', 'category_id');
     }
 
     public function scopeActive($query)
@@ -111,13 +121,18 @@ class TopCvProfile extends Model
         for ($i = 0; $i < count($tags); ++$i) {
             if (isset($tags[$i])) {
                 if ($i == 0)
-                    $query->where('cv_tag', 'like', trim($tags[$i]).'%');
+                    $query->where('cv_tag', 'like', trim($tags[$i]).'%')->orWhere('cv_number', $tags[$i]);
                 else
                     $query->orWhere('cv_tag', 'like', trim($tags[$i]).'%');
             }
         }
 
         return $query;
+    }
+
+    public function scopeOfBases($query, $bases)
+    {
+        return $query->whereIn('cv_base', $bases);
     }
 
     public static function getStatuses()
@@ -128,6 +143,16 @@ class TopCvProfile extends Model
         ];
 
         return $statuses;
+    }
+
+    public static function getBases()
+    {
+        $bases = [
+            'top' => 'Top CV',
+            'common' => 'Ne Top CV',
+        ];
+
+        return $bases;
     }
 
     public function getDiffDate($date, $now=false)

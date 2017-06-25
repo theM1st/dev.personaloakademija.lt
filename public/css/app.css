@@ -35,6 +35,14 @@ a {
     width: 100px;
 }
 
+.header .navbar-nav > li.top-cv a {
+    background: url(../assets/img/top-cv-menu.png) no-repeat scroll center center;
+    border: none !important;
+    width: 70px;
+    height: 40px;
+    text-indent: -999em;
+}
+
 .header .navbar-nav > li > a {
     border: 1px solid #ffffff;
     display: inline-block;
@@ -975,17 +983,59 @@ table div.dropdown:hover > ul.dropdown-menu {
     text-align: center;
 }
 .top-cv .filters .scope-filter .btn-group .dropdown-menu {
-    min-width: 240px;
+    min-width: 250px;
 }
 .top-cv .filters .scope-filter .btn-group label {
     text-align: left;
 }
-.top-cv .table tr td {
+.top-cv .filters .base-filter {
+    margin-top: 5px;
+}
+.top-cv .filters .base-filter span {
+    display: inline-block;
+    padding: 0 10px;
+}
+.top-cv .filters .base-filter label {
+    font-weight: normal;
+}
+.top-cv .table tr > th {
+    text-align: center;
+}
+.top-cv .table tr > td {
     text-align: center;
     vertical-align: middle;
 }
+.top-cv .table tr > td .bordered {
+    border-left: 1px solid #ddd;
+    padding-left: 5px;
+}
+.top-cv .table tr > .scope-col,
+.top-cv .table tr > .institution-col {
+    padding-right: 0;
+    text-align: right;
+}
+.top-cv .table tr > .category-col,
+.top-cv .table tr > .specialty-col {
+    text-align: left;
+}
+.top-cv .table tr > .scope-col,
+.top-cv .table tr > .category-col,
+.top-cv .table tr > .institution-col,
+.top-cv .table tr > .specialty-col {
+    white-space: nowrap;
+    width: 20%;
+}
+.top-cv .table tr > .scope-col {
+    white-space: normal;
+}
+.top-cv .table tr > .specialty-col {
+    width: 30%;
+}
 .top-cv .table tr td.inactive a {
     color: darkred;
+}
+.top-cv-profile {
+    position: relative;
 }
 .top-cv-profile .btn-bookmark-cv {
     color: #002060;
@@ -997,39 +1047,46 @@ table div.dropdown:hover > ul.dropdown-menu {
     font-size: 20px;
     vertical-align: top;
 }
+.top-cv-profile h1 {
+    font-weight: normal;
+    margin-bottom: 0;
+}
+.top-cv-profile h1 span {
+    font-size: 75%;
+    line-height: 30px;
+}
 .top-cv-profile .top-block {
     margin-bottom: 20px;
 }
-.top-cv-profile .top-block .cv-id {
-    border: 1px solid #e8e8e8;
-    color: #002060;
-    font-size: 12px;
-    font-weight: normal;
-    padding: 4px 10px;
+.top-cv-profile .top-block .logo {
+    display: inline-block;
+    margin-top: -20px;
+    width: 110px;
 }
-.top-cv-profile .top-block .table tr td.col1 {
-    background-color: transparent;
+.top-cv-profile .top-block .user-info {
+    display: inline-block;
 }
-.top-cv-profile .top-block .table tr td.col2 .table .sub-col1 {
+.top-cv-profile .top-block .user-info .col1 {
     border-right: 1px solid #e8e8e8;
+    padding: 10px 20px;
     text-align: right;
-    width: 50%;
 }
-.top-cv-profile .top-block .table tr td.col2 .table .sub-col2 {
-    text-align: left;
-    width: 50%;
-}
-.top-cv-profile .top-block .cv-tags .t {
-    font-weight: bold;
-    margin: 5px 0;
-}
-.top-cv-profile .top-block .cv-tags span {
-    display: block;
-    text-align: left;
-    width: 100%;
+.top-cv-profile .top-block .user-info .col2 {
+    padding: 10px 20px;
 }
 .top-cv-profile .middle-block {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+}
+.top-cv-profile .comments {
+    color: #aaaaaa;
+    float: right;
+}
+.top-cv-profile .comments span {
+    display: block;
+    margin-top: 1px;
+}
+.top-cv-profile .comments span strong {
+    color: #777;
 }
 .top-cv-profile h2 {
     font-size: 13px;
@@ -1064,20 +1121,32 @@ table div.dropdown:hover > ul.dropdown-menu {
 .top-cv-profile .table tr td.col2 .table {
     margin: 0;
 }
-.top-cv-profile .table tr td.col2 .table .separator {
+.top-cv-profile .table tr td.col2 .table .separator td {
     border-top: 1px solid #e8e8e8;
 }
-.top-cv-profile .table tr td.col2 .table .separator:first-child {
+.top-cv-profile .table tr td.col2 .table .separator:first-child td {
   border: none;
 }
-.top-cv-profile .table table .foreign-language-title td {
-    border-top: 1px solid #e8e8e8;
+.top-cv-profile .table table .first-language td {
+    border-bottom: 1px solid #e8e8e8;
 }
 .top-cv-profile .table tr td.col2 .salary span + span::before {
     content: '/';
 }
+.top-cv-profile .table tr td.col2 .table td.col21 {
+    width: 130px;
+    white-space:nowrap;
+    vertical-align:top
+}
 .top-cv-profile .table table tr td {
     padding: 5px 15px;
+}
+.top-cv-profile .cv-skills tr td.col2 {
+    border-bottom: 1px solid #e8e8e8;
+    padding: 5px 15px;
+}
+.top-cv-profile .cv-skills tr td.last {
+    border: none;
 }
 
 @media print {

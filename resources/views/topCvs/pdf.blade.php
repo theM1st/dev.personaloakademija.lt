@@ -19,47 +19,49 @@
         .text-right {
             text-align: right;
         }
+        .img-responsive {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
         .table {
+            border-spacing: 0;
+            border-collapse: collapse;
             width: 100%;
+            max-width: 100%;
+            margin-bottom: 20px;
         }
         .table tr td {
             padding: 5px 15px;
         }
-        .top-cv-profile .top-block {
-            margin-bottom: 20px;
+        .top-cv-profile {
+            position: relative;
         }
-        .top-cv-profile .top-block .cv-id {
-            border: 1px solid #e8e8e8;
-            color: #002060;
-            font-size: 12px;
+        .top-cv-profile h1 {
+            font-size: 18px;
             font-weight: normal;
-            padding: 4px 10px;
+            margin-bottom: 30px;
         }
-        .top-cv-profile .top-block .table tr td.col1 {
-            background-color: transparent;
-            width: 150px;
+        .top-cv-profile h1 span {
+            font-size: 75%;
         }
-        .top-cv-profile .top-block .table tr td.col2 {
+        .top-cv-profile .top-block {
+            margin-bottom: 0;
         }
-        .top-cv-profile .top-block .table tr td.col3 {
+        .top-cv-profile .top-block .logo {
+            display: inline-block;
+            width: 110px;
         }
-        .top-cv-profile .top-block .table tr td.col2 .table .sub-col1 {
+        .top-cv-profile .top-block .user-info {
+            display: inline-block;
+        }
+        .top-cv-profile .top-block .user-info .col1 {
             border-right: 1px solid #e8e8e8;
+            padding: 10px 20px;
             text-align: right;
-            width: 50%;
         }
-        .top-cv-profile .top-block .table tr td.col2 .table .sub-col2 {
-            text-align: left;
-            width: 50%;
-        }
-        .top-cv-profile .top-block .cv-tags .t {
-            font-weight: bold;
-            margin: 5px 0;
-        }
-        .top-cv-profile .top-block .cv-tags span {
-            display: block;
-            text-align: left;
-            width: 100%;
+        .top-cv-profile .top-block .user-info .col2 {
+            padding: 10px 20px;
         }
         .top-cv-profile .middle-block {
             margin-bottom: 20px;
@@ -87,34 +89,47 @@
         }
         .top-cv-profile .table tr td.col2 .label {
             display: block;
-            font-size: 100%;
+            font-size: 12px;
             font-weight: normal;
             margin-top: 2px;
             padding: 3px 6px;
+            width: 80%;
         }
         .top-cv-profile .table tr td.col2 .table {
             margin: 0;
         }
-        .top-cv-profile .table tr td.col2 .table .separator {
+        .top-cv-profile .table tr td.col2 .table .separator td {
             border-top: 1px solid #e8e8e8;
         }
-        .top-cv-profile .table tr td.col2 .table .separator:first-child {
+        .top-cv-profile .table tr td.col2 .table .separator:first-child td {
             border: none;
         }
-        .top-cv-profile .table table .foreign-language-title td {
-            border-top: 1px solid #e8e8e8;
+        .top-cv-profile .table table .first-language td {
+            border-bottom: 1px solid #e8e8e8;
         }
         .top-cv-profile .table tr td.col2 .salary span + span::before {
             content: '/';
         }
+        .top-cv-profile .table tr td.col2 .table td.col21 {
+            width: 130px;
+            white-space:nowrap;
+            vertical-align:top
+        }
         .top-cv-profile .table table tr td {
             padding: 5px 15px;
+        }
+        .top-cv-profile .cv-skills tr td.col2 {
+            border-bottom: 1px solid #e8e8e8;
+            padding: 5px 15px;
+        }
+        .top-cv-profile .cv-skills tr td.last {
+            border: none;
         }
     </style>
 </head>
 <body>
     <div class="top-cv-profile">
-        @include('topCvs.partials.cv')
+        @include('topCvs.partials.cv', ['pdf' => true])
     </div>
 </body>
 </html>

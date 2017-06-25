@@ -46,6 +46,18 @@
                             @endforeach
                         </div>
                     </div>
+                    @if (auth()->check() && auth()->user()->isAdminWorker())
+                        <div class="col-sm-12 text-center base-filter">
+                            <span>
+                                <input type="checkbox" name="bases[]" id="cv-base-top" value="top"{{ (isset($filter['bases']) && in_array('top', $filter['bases']) ? ' checked="checked"' : '') }}>
+                                {{ Form::label('cv-base-top', 'Top CV') }}
+                            </span>
+                            <span>
+                                <input type="checkbox" name="bases[]" id="cv-base-common" value="common"{{ (isset($filter['bases']) && in_array('common', $filter['bases']) ? ' checked="checked"' : '') }}>
+                                {{ Form::label('cv-base-common', 'Ne Top CV') }}
+                            </span>
+                        </div>
+                    @endif
                 </div>
                 <div class="text-center">
                     {{ Form::text('tags', (isset($filter['tags']) ? $filter['tags'] : null), ['class'=>'form-control', 'placeholder'=>'Raktiniai žodžiai', 'style'=>'display:inline;width: auto;vertical-align: middle;']) }}
@@ -55,25 +67,60 @@
                 </div>
             </div>
         </form>
-        <div style="margin-bottom: 20px">
-            <a href="{{action('TopCvsAdminController@create')}}" class="btn btn-primary">Naujas Top CV</a>
-        </div>
+        @if (auth()->check() && auth()->user()->isAdminWorker())
+            <div style="margin-bottom: 20px">
+                <a href="{{action('TopCvsAdminController@create')}}" class="btn btn-primary">
+                    Naujas CV
+                </a>
+            </div>
+        @endif
         <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th colspan="2">
+                        Profesinė patirtis
+                    </th>
+                    <th colspan="2">
+                        Išsilavinimas
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
             @foreach($cvs as $item)
                 <tr>
-                    <td{{ !$item->active ? ' class=inactive' : '' }}>
-                        <a href="{{ route('topCv.show', $item->id) }}">
-                            <strong>{{ $item->cv_name }}</strong>
+                    <td>
+                        <a href="{{ route('topCv.show', $item->cv_number) }}">
+                            {{ $item->genderName }}<br>
+                            {{ $item->age }} m.<br>
+                            {{ $item->city ? $item->city->name : '' }}<br>
                         </a>
                     </td>
-                    <td>
-                        {{ $item->genderName }}<br>
-                        {{ $item->age }} m.<br>
-                        {{ $item->city ? $item->city->name : '' }}<br>
+                    <td class="scope-col">
+                        {{ $item->scope ? $item->scope->name : '' }}
                     </td>
-                    <td>
-                        {{ $item->scope ? $item->scope->name : '' }}<br>
-                        {{ $item->category ? $item->category->name : '' }}<br>
+                    <td class="category-col">
+                        <div class="bordered">
+                            @if ($item->categories->count())
+                                @foreach ($item->categories as $c)
+                                    <div title="{{ $c->name }}">{{ str_limit($c->name, 24) }}</div>
+                                @endforeach
+                            @endif
+                        </div>
+                    </td>
+                    <td class="institution-col">
+                        @if ($studies = $item->studies->sortByDesc('id')->take(2))
+                            @foreach ($studies as $s)
+                                <div title="{{ $s->institution }}">{{ str_limit($s->institution, 24) }}</div>
+                            @endforeach
+                        @endif
+                    </td>
+                    <td class="specialty-col">
+                        <div class="bordered">
+                            @foreach ($item->studies as $s)
+                                <div title="{{ $s->specialty }}">{{ str_limit($s->specialty, 24) }}</div>
+                            @endforeach
+                        </div>
                     </td>
                     <td>
                         <strong>

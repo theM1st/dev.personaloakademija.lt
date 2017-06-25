@@ -9,11 +9,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\OrderTopCv;
+use App\Http\Requests\SentTopCv;
 use App\Cv;
 use App\TopCvProfile;
 use App\City;
 use App\Gender;
 use App\TopCvScope;
+use App\TopCvLanguage;
+use App\TopCvStudy;
+use App\TopCvWork;
 
 class TopCvsController extends Controller
 {
@@ -43,6 +47,14 @@ class TopCvsController extends Controller
             $cvs->ofTag($filter['tags']);
         }
 
+        if (!empty($filter['bases'][0])) {
+            $cvs->ofBases($filter['bases']);
+        }
+
+        if (auth()->guest() || !auth()->user()->isAdminWorker()) {
+            $scopes->pop();
+        }
+
         $cvs = $cvs->latest()
             ->paginate(20);
 
@@ -55,13 +67,36 @@ class TopCvsController extends Controller
         ]);
     }
 
-    public function show($id)
+    public function show(TopCvProfile $cv)
     {
-        $cv = TopCvProfile::active()->findOrFail($id);
 
         return view('topCvs.show', [
-            'cv' => $cv
+            'cv' => $cv,
+            'withContacts' => (auth()->check() ? auth()->user()->isAdminWorker() : false)
         ]);
+    }
+
+    public function pdf(TopCvProfile $cv)
+    {
+        $genders = Gender::getGendersList(array());
+        $cities = City::getCitiesList(array());
+        $scopes = TopCvScope::getScopes(true);
+        $cvLanguages = $cv->languages()->get();
+        $cvStudies = $cv->studies()->get();
+        $cvWorks = $cv->works()->get();
+
+        return \PDF::loadView('topCvs.pdf', [
+            'withContacts' => false,
+            'cv' => $cv,
+            'genders' => $genders,
+            'cities' => array_slice($cities, 0, 5, true),
+            'scopes' => $scopes,
+            'languages' => TopCvLanguage::getLanguages(true),
+            'languageLevels' => TopCvLanguage::getLevels(),
+            'cvLanguages' => $cvLanguages,
+            'cvStudies' => ($cvStudies->count() ? $cvStudies : [ new TopCvStudy ]),
+            'cvWorks' => ($cvWorks->count() ? $cvWorks : [ new TopCvWork ]),
+        ])->download('top_cv_'.$cv->id.'.pdf');
     }
 
     public function addBookmark(TopCvProfile $cv)
@@ -88,5 +123,27 @@ class TopCvsController extends Controller
         });
 
         return ['success' => 'Žinutė sėkmingai išsiųsta. Su Jumis netrukus susisieks <strong>Personalo akademijos</strong> atstovas.'];
+    }
+
+    public function sent()
+    {
+        return view('topCvs.sent');
+    }
+
+    public function postSent(SentTopCv $request)
+    {
+        $file = $request->file('cv_file');
+
+        \Mail::send('emails.topCvs.send', [], function ($message) use ($file) {
+
+            $message->to(config('mail.from.address'), config('mail.from.name'))
+                ->subject('Top CV gavimas')
+                ->attach($file, [
+                    'as' => $file->getClientOriginalName()
+                ]);
+
+        });
+
+        return redirect()->back()->with('success', true);
     }
 }

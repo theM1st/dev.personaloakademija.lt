@@ -67,6 +67,7 @@ class PageController extends Controller
             'cf_email' => 'required',
             'cf_question_theme' => 'required',
             'cf_question' => 'required',
+            'g-recaptcha-response' => 'required|recaptcha',
         ]);
 
         Mail::send('emails.contactForm', [

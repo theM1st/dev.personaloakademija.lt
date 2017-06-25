@@ -177,6 +177,7 @@ return [
 		App\Providers\HelperServiceProvider::class,
 		Laracasts\Flash\FlashServiceProvider::class,
 		Baum\Providers\BaumServiceProvider::class,
+        Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
 	],
 
 	/*
@@ -224,11 +225,12 @@ return [
 		'URL' => Illuminate\Support\Facades\URL::class,
 		'Validator' => Illuminate\Support\Facades\Validator::class,
 		'View' => Illuminate\Support\Facades\View::class,
-		'Html'      => 'Collective\Html\HtmlFacade',
-		'Form'      => 'Collective\Html\FormFacade',
-        'Carbon'    => 'Carbon\Carbon',
-        'Image'     => 'Intervention\Image\Facades\Image',
+        'Html' => 'Collective\Html\HtmlFacade',
+		'Form' => 'Collective\Html\FormFacade',
+        'Carbon' => 'Carbon\Carbon',
+        'Image' => 'Intervention\Image\Facades\Image',
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
 	],
 
 ];

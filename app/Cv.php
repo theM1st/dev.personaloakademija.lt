@@ -289,7 +289,7 @@ class Cv extends Model {
 
     public static function filter()
     {
-        $filterItems = array('cvType', 'cities', 'scopes', 'institutions', 'courses', 'age', 'ageFrom', 'ageTo','genders', 'tags', 'cvOrder');
+        $filterItems = array('cvType', 'cities', 'scopes', 'institutions', 'courses', 'age', 'ageFrom', 'ageTo','genders', 'tags', 'cvOrder', 'bases');
         $filter = array();
 
         $session = session('cvFilter');

@@ -74,6 +74,7 @@ return [
 	"url"                  => "The :attribute format is invalid.",
 	"timezone"             => "The :attribute must be a valid zone.",
 
+
 	/*
 	|--------------------------------------------------------------------------
 	| Custom Validation Language Lines
@@ -86,6 +87,10 @@ return [
 	*/
 
 	'custom' => [
+	    'g-recaptcha-response' => [
+            'required' => 'Patvirtinkite, kad jus ne robotas',
+            'recaptcha' => 'Patvirtinkite, kad jus ne robotas',
+        ],
         'password' => [
             "required" => "Nurodykite slaptažodį",
             "confirmed" => "Slaptažodžiai turi sutapti",
@@ -138,7 +143,7 @@ return [
             'max'   => 'Nuotraukos dydis turi būti iki 10 MB'
         ],
         'cv_file' => [
-            'required' => 'Dokumentas neprisegtas',
+            'required' => 'CV nepasirinktas',
             'mimes' => 'Prisegtas dokumentas gali būti WORD, PDF, JPG, PNG formatu',
         ],
         'cv_status' => [

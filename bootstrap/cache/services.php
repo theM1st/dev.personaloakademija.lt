@@ -34,6 +34,7 @@
     30 => 'App\\Providers\\HelperServiceProvider',
     31 => 'Laracasts\\Flash\\FlashServiceProvider',
     32 => 'Baum\\Providers\\BaumServiceProvider',
+    33 => 'Greggilbert\\Recaptcha\\RecaptchaServiceProvider',
   ),
   'eager' => 
   array (
@@ -57,6 +58,7 @@
     17 => 'App\\Providers\\HelperServiceProvider',
     18 => 'Laracasts\\Flash\\FlashServiceProvider',
     19 => 'Baum\\Providers\\BaumServiceProvider',
+    20 => 'Greggilbert\\Recaptcha\\RecaptchaServiceProvider',
   ),
   'deferred' => 
   array (

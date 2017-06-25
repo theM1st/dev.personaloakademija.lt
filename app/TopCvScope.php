@@ -20,7 +20,7 @@ class TopCvScope extends Model
         });
 
         if ($list) {
-            return $data->pluck('name', 'id')->prepend('-- Pasirinkti --');
+            return $data->pluck('name', 'id')->prepend('-- Pasirinkti --', 0);
         }
 
         return $data;

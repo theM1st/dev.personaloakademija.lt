@@ -46,13 +46,19 @@
     <div class="form-group">
         {!! Form::label('scope_category_id', 'Kategorija', ['class' => 'col-sm-5 control-label required']) !!}
         <div class="col-sm-5">
-            {!! Form::select('scope_category_id', (!empty($cv) ? $cv->scope->categories->pluck('name', 'id') : []), old('scope_category_id'), ['class' => 'form-control input-sm', 'placeholder' => 'Iš pradžių pasirinkite sritį']) !!}
+            {!! Form::select('scope_category_id[]', [], null, ['id' => 'scope_category_id', 'class' => 'form-control multiselect input-sm', 'multiple'=>'multiple']) !!}
         </div>
     </div>
     <div class="form-group">
         {!! Form::label('cv_status', 'CV statusas', ['class' => 'col-sm-5 control-label']) !!}
         <div class="col-sm-5">
             {!! Form::select('cv_status', App\TopCvProfile::getStatuses(), old('cv_status'), ['class' => 'form-control input-sm']) !!}
+        </div>
+    </div>
+    <div class="form-group">
+        {!! Form::label('cv_base', 'CV bazė', ['class' => 'col-sm-5 control-label']) !!}
+        <div class="col-sm-5">
+            {!! Form::select('cv_base', App\TopCvProfile::getBases(), old('cv_base'), ['class' => 'form-control input-sm']) !!}
         </div>
     </div>
     <div class="form-group">
@@ -68,7 +74,7 @@
         </div>
     </div>
     <div class="form-group">
-        {!! Form::label('study', 'Išsilavimas', ['class' => 'control-label', 'style' => 'display:block;margin-bottom:5px;text-align:center' ]) !!}
+        {!! Form::label('study', 'Išsilavinimas', ['class' => 'control-label', 'style' => 'display:block;margin-bottom:5px;text-align:center' ]) !!}
         @foreach ($cvStudies as $k => $item)
             <div class="form-group" @if ($k == 0) id="study-clone-area" @endif>
                 @if (!empty($cv) && $item->id)
@@ -78,7 +84,13 @@
                 @endif
                 <div class="row">
                     <div class="col-sm-4">
-                        {!! Form::text('study_date[]', $item->study_date, ['class' => 'form-control input-sm', 'placeholder' => 'yyyy/mm - yyyy/mm']) !!}
+                        {!! Form::text('study_date[]', $item->study_date, ['class' => 'form-control input-sm', 'placeholder' => 'yyyy mm - yyyy mm']) !!}
+                        @if ($k == 0)
+                            <div class="clone-ignore">
+                                {{ Form::checkbox('study_now[]', 1, $item->study_now, ['id' => "study-now-$k"]) }}
+                                {!! Form::label("study-now-$k", 'studijos tęsiamos', ['class' => 'control-label', 'style' => 'font-weight:normal']) !!}
+                            </div>
+                        @endif
                     </div>
                     <div class="col-sm-4">
                         {!! Form::text('institution[]', $item->institution, ['class' => 'form-control input-sm', 'placeholder' => 'Aukštojo mokslo įstaiga']) !!}
@@ -99,24 +111,33 @@
         @foreach ($cvWorks as $k => $item)
             <div class="form-group" @if ($k == 0) id="work-clone-area" @endif>
                 @if (!empty($cv) && $item->id)
-                    <a href="{{ route('topCvs.removeWork', [$cv->id, $item->id]) }}" class="remove-multiple-item">
+                    <a href="{{ route('topCvs.removeWork', [$cv->id, $item->id]) }}" class="clone-ignore remove-multiple-item">
                         <span class="glyphicon glyphicon-minus-sign"></span>
                     </a>
                 @endif
                 <div class="row" style="margin-bottom: 10px;">
                     <div class="col-sm-4">
-                        {!! Form::text('work_date[]', $item->work_date, ['class' => 'form-control pull-left input-sm', 'placeholder' => 'yyyy/mm - yyyy/mm', 'style' => 'width:auto']) !!}
-                        <span class="clone-ignore">
-                            <label class="pull-right" style="margin:4px 0">
-                                {{ Form::checkbox('work_now[]', 1, $item->work_now) }} iki dabar
-                            </label>
-                        </span>
+                        {!! Form::text('work_date[]', $item->work_date, ['class' => 'form-control pull-left input-sm', 'placeholder' => 'yyyy mm - yyyy mm']) !!}
+                        @if ($k == 0)
+                            <div class="clone-ignore">
+                                {{ Form::checkbox('work_now[]', 1, $item->work_now, ['id' => "work-now-$k"]) }}
+                                {!! Form::label("work-now-$k", 'iki dabar', ['class' => 'control-label', 'style' => 'font-weight:normal']) !!}
+                            </div>
+                        @endif
                     </div>
                     <div class="col-sm-4">
                         {!! Form::text('workplace[]', $item->workplace, ['class' => 'form-control input-sm', 'placeholder' => 'Darbovietės pavadinimas']) !!}
+                        <div>
+                            {!! Form::checkbox('workplace_hide[]', 1, $item->workplace_hide, ['id' => "workplace-hide-$k"]) !!}
+                            {!! Form::label("workplace-hide-$k", 'Nerodyti pavadinimo', ['class' => 'control-label', 'style' => 'font-weight:normal']) !!}
+                        </div>
                     </div>
                     <div class="col-sm-4">
                         {!! Form::text('work_position[]', $item->work_position, ['class' => 'form-control input-sm', 'placeholder' => 'Pareigos']) !!}
+                        <div>
+                            {!! Form::checkbox('work_position_hide[]', 1, $item->work_position_hide, ['id' => "work-position-hide-$k"]) !!}
+                            {!! Form::label("work-position-hide-$k", 'Nerodyti pareigų', ['class' => 'control-label', 'style' => 'font-weight:normal']) !!}
+                        </div>
                     </div>
                 </div>
                 <div>
@@ -203,25 +224,25 @@
     <div class="form-group">
         {!! Form::label('cv_skills', 'Profesiniai įgūdžiai', ['class' => 'control-label', 'style' => 'margin-bottom:5px;']) !!}
         <div>
-            {!! Form::text('cv_skills', old('cv_skills'), ['class' => 'form-control input-sm', 'placeholder' => 'IT įgūdžiai, kompiuterinis raštingumas, programiniai paketai']) !!}
+            {!! Form::textarea('cv_skills', old('cv_skills'), ['class' => 'form-control input-sm', 'rows' => 2, 'placeholder' => 'IT įgūdžiai, kompiuterinis raštingumas, programiniai paketai']) !!}
         </div>
     </div>
     <div class="form-group">
         {!! Form::label('cv_trainings', 'Mokymai', ['class' => 'control-label', 'style' => 'margin-bottom:5px;']) !!}
         <div>
-            {!! Form::text('cv_trainings', old('cv_trainings'), ['class' => 'form-control input-sm', 'placeholder' => 'Seminarai, mokymai, tobulėjimo kursai']) !!}
+            {!! Form::textarea('cv_trainings', old('cv_trainings'), ['class' => 'form-control input-sm', 'rows' => 2, 'placeholder' => 'Seminarai, mokymai, tobulėjimo kursai']) !!}
         </div>
     </div>
     <div class="form-group">
         {!! Form::label('cv_certificates', 'Sertifikatai', ['class' => 'control-label', 'style' => 'margin-bottom:5px;']) !!}
         <div>
-            {!! Form::text('cv_certificates', old('cv_certificates'), ['class' => 'form-control input-sm', 'placeholder' => 'Sertifikatai']) !!}
+            {!! Form::textarea('cv_certificates', old('cv_certificates'), ['class' => 'form-control input-sm', 'rows' => 2, 'placeholder' => 'Sertifikatai']) !!}
         </div>
     </div>
     <div class="form-group">
         {!! Form::label('cv_info', 'Papildoma informacija', ['class' => 'control-label', 'style' => 'margin-bottom:5px;']) !!}
         <div>
-            {!! Form::text('cv_info', old('cv_info'), ['class' => 'form-control input-sm', 'placeholder' => 'Laisvalaikis, pomėgiai, visuomeninė veikla, asmeninės savybės']) !!}
+            {!! Form::textarea('cv_info', old('cv_info'), ['class' => 'form-control input-sm', 'rows' => 2, 'placeholder' => 'Laisvalaikis, pomėgiai, visuomeninė veikla, asmeninės savybės']) !!}
         </div>
     </div>
 

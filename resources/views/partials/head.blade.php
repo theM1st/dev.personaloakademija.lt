@@ -8,7 +8,7 @@
 
 	<link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet" media="all">
 	<link href="{{ asset('/css/jquery-ui.min.css') }}" rel="stylesheet">
-	<link href="{{ asset('/css/app.css') }}?v=201704112" rel="stylesheet" media="all">
+	<link href="{{ asset('/css/app.css') }}?v=201706071" rel="stylesheet" media="all">
 	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
 
 	<link href="{{ asset('/css/bootstrap-multiselect.css') }}" rel="stylesheet">

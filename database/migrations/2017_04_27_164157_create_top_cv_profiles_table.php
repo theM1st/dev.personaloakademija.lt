@@ -15,6 +15,7 @@ class CreateTopCvProfilesTable extends Migration
     {
         Schema::create('top_cv_profiles', function(Blueprint $table) {
             $table->increments('id');
+            $table->string('cv_number', 50)->unique();
             $table->string('name');
             $table->enum('gender', ['M', 'F'])->nullable();
             $table->smallInteger('age')->unsigned()->nullable();

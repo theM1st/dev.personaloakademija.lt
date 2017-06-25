@@ -7,12 +7,21 @@
             <div class="col-sm-2 col-xs-12 text-center">
                 @if (!empty($leftBanners))
                     @foreach ($leftBanners as $b)
+                        @if(request()->segment(1) != 'top-cv')
+                            <div class="okaycv-ad">
+                                <a href="{{$b->banner_link}}" target="_blank">
+                                    <img src="{{$b->getImage()}}" class="img-responsive">
+                                </a>
+                            </div>
+                        @endif
+                    @endforeach
+                @endif
+                @if (request()->segment(1) == 'top-cv')
                         <div class="okaycv-ad">
-                            <a href="{{$b->banner_link}}" target="_blank">
-                                <img src="{{$b->getImage()}}" class="img-responsive">
+                            <a href="{{ route('topCv.sent') }}">
+                                <img src="/uploads/banners/rNb1eN.gif" class="img-responsive">
                             </a>
                         </div>
-                    @endforeach
                 @endif
             </div>
             <div class="col-sm-8 page-content">
@@ -42,7 +51,7 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="{{ asset('/js/jquery.waterwheelCarousel.js') }}"></script>
 
-    {!! Html::script('/js/common.js') !!}
+    {!! Html::script('/js/common.js?v=20170601') !!}
 
 	@yield('scripts')
 

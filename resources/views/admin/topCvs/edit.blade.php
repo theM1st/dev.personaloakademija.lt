@@ -1,9 +1,9 @@
 @extends('app')
 
-@section('title', "Top CV Redagavimas -")
+@section('title', "CV Redagavimas -")
 
 @section('content')
-    <h1>Top CV Redagavimas</h1>
+    <h1>CV Redagavimas</h1>
 
     {!! Form::model($cv, ['route' => ['topCvs.update', $cv->id], 'method'=>'put', 'class'=>'form-horizontal ajax-form']) !!}
 
@@ -16,6 +16,6 @@
 @endsection
 @section('scripts')
     <script type="text/javascript">
-        scopeCategoriesTrigger();
+       scopeCategoriesTrigger({!! json_encode($cv->categories->pluck('id', 'id')->toArray()) !!});
     </script>
 @endsection

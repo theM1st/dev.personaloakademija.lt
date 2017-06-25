@@ -26,10 +26,11 @@
         <div class="col-sm-6">
             <div class="form-group">
                 {{ Form::label("cf_question", 'Jūsų klausimas', [ 'class' => 'control-label required' ]) }}
-                {{ Form::textarea("cf_question", old("cf_question"), [ 'class' => 'form-control' ]) }}
+                {{ Form::textarea("cf_question", old("cf_question"), [ 'class' => 'form-control', 'rows' => 7 ]) }}
             </div>
         </div>
     </div>
+    {!! Recaptcha::render() !!}
     <div class="text-center">
         {{ Form::submit('Siųsti', ['class' => 'btn btn-primary']) }}
     </div>

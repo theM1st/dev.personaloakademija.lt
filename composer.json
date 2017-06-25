@@ -11,7 +11,8 @@
 		"intervention/image": "^2.2",
 		"barryvdh/laravel-dompdf": "dev-master",
 		"baum/baum": "~1.1",
-		"laracasts/flash": "^2.0"
+		"laracasts/flash": "^2.0",
+		"greggilbert/recaptcha": "dev-master"
 	},
 	"require-dev": {
 		"fzaninotto/faker": "~1.4",

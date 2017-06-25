@@ -100,17 +100,25 @@ Route::group(['prefix' => 'administration', 'middleware' => 'worker'], function 
         ->name('topCvs.removeWork');
     Route::get('topCvs/{cvId}/pdf', 'TopCvsAdminController@pdf')
         ->name('topCvs.pdf');
+
+    Route::post('topCvs/{cvId}/comment', 'TopCvCommentsController@store')
+        ->name('topCv.comments.store');
+
     Route::resource('topCvs', 'TopCvsAdminController');
 });
 
-Route::get('top-cv/{id}', 'TopCvsController@show')->name('topCv.show');
-Route::post('top-cv/{topCvProfile}/addBookmark', 'TopCvsController@addBookmark')
-    ->middleware('auth')
-    ->name('topCv.addBookmark');
+Route::get('top-cv/sent', 'TopCvsController@sent')->name('topCv.sent');
+Route::post('top-cv/sent', 'TopCvsController@postSent')->name('topCv.postSent');
 Route::post('top-cv/order', 'TopCvsController@order')
     ->middleware('auth')
     ->name('topCv.order');
+Route::get('top-cv/{cvNumber}', 'TopCvsController@show')->name('topCv.show');
+Route::get('top-cv/{cvNumber}/pdf', 'TopCvsController@pdf')->name('topCv.pdf');
+Route::post('top-cv/{topCvProfile}/addBookmark', 'TopCvsController@addBookmark')
+    ->middleware('auth')
+    ->name('topCv.addBookmark');
 Route::get('top-cv', 'TopCvsController@index')->name('topCv.index');
+
 
 Route::get('/', 'PageController@index');
 Route::get('p/{pageSlug}', ['as' => 'page.show', 'uses' => 'PageController@show']);

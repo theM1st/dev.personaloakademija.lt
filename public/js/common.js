@@ -417,20 +417,23 @@ function ajaxForms(container, state)
     return false;
 }
 
-function scopeCategoriesTrigger()
+function scopeCategoriesTrigger(selectedItems)
 {
     $('#scope_id').on('change', function() {
         var id = $(this).val();
 
         $.get('/administration/topCvs/getScopeCategories', { id: id }, function(data) {
-            var select = $('#scope_category_id');
-            var options = select.prop('options');
+            var $select = $('#scope_category_id');
+            var options = $select.prop('options');
 
-            $('option', select).remove();
+            $('option', $select).remove();
 
             $.each(data, function(val, text) {
-                options[options.length] = new Option(text, val);
+                var selected = selectedItems[val] || false;
+                options[options.length] = new Option(text, val, false, selected);
             });
+
+            $select.multiselect('rebuild');
         });
     });
 

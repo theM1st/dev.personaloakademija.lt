@@ -48,6 +48,14 @@ class RouteServiceProvider extends ServiceProvider
 		Route::bind('pageSlug', function($slug) {
 			return Page::where('slug_'.\Lang::getLocale(), $slug)->first();
 		});
+        Route::bind('cvNumber', function($cvNumber) {
+            $cv = TopCvProfile::where('cv_number', $cvNumber)->first();
+            if (!$cv) {
+                abort(404);
+            }
+
+            return $cv;
+        });
 	}
 
 	/**

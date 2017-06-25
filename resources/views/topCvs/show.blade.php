@@ -3,28 +3,29 @@
 @section('title', $cv->cv_name)
 
 @section('content')
+    @if (request()->has('updated'))
+        <div class="alert alert-success text-center" role="alert">
+            CV sėkmingai atnaujintas
+        </div>
+    @endif
     <div class="top-cv-profile">
-        @if (request()->has('updated'))
-            <div class="alert alert-success text-center" role="alert">
-                CV sėkmingai atnaujintas
-            </div>
-        @endif
         @include('topCvs.partials.cv')
         <div class="clearfix tools">
             <a href="#" class="btn btn-link btn-bookmark-cv"
                onclick="event.preventDefault();
                 document.getElementById('bookmark-form').submit();">
                 @if (!auth()->check() || !auth()->user()->bookmarks->contains($cv->id))
-                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
                     <span>Pažymėti kandidatą kaip tinkamą</span>
                 @else
                     <i class="fa fa-star" aria-hidden="true"></i>
-                    <span>Atžymėti kandidatą kaip tinkamą</span>
+                    <span>Atšaukti pažymėtą kandidatą</span>
                 @endif
             </a>
-            <button class="btn btn-secondary" data-toggle="modal" data-target="#order-cv" style="margin-left:40px">
+            <button class="btn btn-warning" data-toggle="modal" data-target="#order-cv" style="margin-left:40px">
                 Užsakyti tinkamus CV
             </button>
+            <a href="{{ route('topCv.pdf', $cv->cv_number) }}" class="btn btn-secondary">PDF formatas</a>
             <a href="{{ route('topCv.index') }}" class="btn btn-default pull-right">Grįžti į CV sąrašą</a>
 
             {{ Form::open(['route' => ['topCv.addBookmark', $cv->id], 'id' => 'bookmark-form']) }}
@@ -33,7 +34,7 @@
         @if (auth()->check() && auth()->user()->isAdminWorker())
             <div class="text-center">
                 <hr>
-                <a href="{{ route('topCvs.pdf', $cv->id) }}" class="btn btn-secondary">PDF formatas</a>
+                <a href="{{ route('topCvs.pdf', $cv->id) }}" class="btn btn-secondary">PDF su kontaktais</a>
                 <a href="{{ route('topCvs.edit', $cv->id) }}" class="btn btn-primary">Redaguoti</a>
                 {{ Form::open(['route' => ['topCvs.destroy', $cv->id], 'method' => 'delete', 'style' => 'display:inline']) }}
                     {{ Form::submit('Trinti', ['class' => 'btn btn-danger', 'onclick' => "return confirm('Ar tikrai?')"]) }}
@@ -47,7 +48,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Tinkamų kandidatų užklausos forma</h4>
+                    <h4 class="modal-title">Tinkamų kandidatų užsakymo forma</h4>
                 </div>
                 <div class="modal-body">
                     @if (auth()->check() && auth()->user()->bookmarks->count())
@@ -56,7 +57,7 @@
                                 <p>Jūsų pažymėti kandidatai, su kuriais norėtumėte susitikti darbo pokalbyje:</p>
                                 <p>
                                     @foreach (auth()->user()->bookmarks as $k => $item)
-                                        <span class="label label-primary" style="font-size: 13px">{{ $item->id }}</span>
+                                        <span class="label label-primary" style="font-size: 13px">{{ $item->cv_number }}</span>
                                     @endforeach
                                 </p>
                             </div>

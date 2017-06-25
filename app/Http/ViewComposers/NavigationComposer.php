@@ -45,7 +45,10 @@ class NavigationComposer
         //$data['navigation'] =  $this->getNavigation(0, 0, $pages, '', array(1), true, 'nav');
 
         $navigation = '<ul class="nav navbar-nav">';
-        foreach ($pages as $node) {
+        foreach ($pages as $p => $node) {
+            if ($p == 2 && request()->segment(1) == 'top-cv') {
+                $navigation .= '<li class="top-cv"><a href="/top-cv">TOP CV</a></li>';
+            }
             $navigation .= $this->getNavigation2($node);
         }
         $navigation .= '</ul>';
@@ -86,7 +89,7 @@ class NavigationComposer
         $ul = '<ul class="'.$ulclass.'">';
         $return = null;
         $n = 1;
-        foreach ($pages as $page) {
+        foreach ($pages as $k => $page) {
             if ($parent == $page->parent_id && in_array($page->position, $places) && $page->active == 1) {
 
                 $link = 'http://www.personaloakademija.lt/' . $page->language . '/' . $page->url;

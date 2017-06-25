@@ -1,47 +1,81 @@
-<h1 class="text-center" style="text-align: center">{{ $cv->cv_name }}</h1>
+<h1 class="text-center" style="text-align: center">
+    {{ $cv->cv_name }}<br>
+    <span>CV Nr. {{ $cv->cv_number }}</span>
+</h1>
 <div class="top-block">
-    <table class="table" width="100%">
-        <tr>
-            <td class="col1" width="150">
-                <img src="{{asset('assets/img/large-logo.png')}}" alt="" class="img-responsive">
-            </td>
-            <td class="col2 text-center" align="center">
-                <table class="table" width="100%">
-                    <tr>
-                        <td class="sub-col1" align="center" width="50%">
-                            <div>{{ $cv->genderName }}</div>
-                            <div>{{ $cv->age }} m.</div>
-                            <div>{{ $cv->city ? $cv->city->name : '' }}</div>
-                        </td>
-                        <td class="sub-col2" width="50%">
-                            <div>Sritis: {{ $cv->scope ? $cv->scope->name : '' }}</div>
-                            <div>Kategorija: {{ $cv->category ? $cv->category->name : '' }}</div>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-            <td class="col3">
-                <div class="text-right" style="text-align: right">
-                    CV Nr. <span class="cv-id">{{ $cv->id }}</span>
-                </div>
-                @if ($cv->cv_tag)
-                    <div class="cv-tags">
-                        <div class="t">Paieškos žodžiai</div>
-                        <span>{{ $cv->cv_tag }}</span>
-                    </div>
-                @endif
-            </td>
-        </tr>
-    </table>
-</div>
-@if ($cv->about)
-    <div class="middle-block">
-        <p style="text-align: center">
-            <strong>Trumpai apie save</strong>
-        </p>
-        <div>{{ $cv->about }}</div>
+    <div class="logo">
+        <img src="{{asset('assets/img/large-logo.png')}}" alt="" class="img-responsive">
     </div>
-@endif
+    <div class="user-info">
+        <table>
+            <tr>
+                <td class="col1">
+                    @if (empty($withContacts))
+                        <div>{{ $cv->genderName }}</div>
+                    @else
+                        <div>{{ $cv->name }}</div>
+                    @endif
+                    <div>{{ $cv->age }} m.</div>
+                    <div>{{ $cv->city ? $cv->city->name : '' }}</div>
+                    @if (!empty($withContacts))
+                        <div>{{ $cv->telephone }}</div>
+                        <div>{{ $cv->email }}</div>
+                    @endif
+                </td>
+                <td class="col2">
+                    <div>Sritis: {{ $cv->scope ? $cv->scope->name : '' }}</div>
+                    <div>
+                        Kategorija:
+                        {{ $cv->categories->count() ? $cv->categories->pluck('name')->implode(', ') : '' }}
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="middle-block row">
+    @if ($cv->about)
+        <div class="{{ $withContacts && empty($pdf) ? ' col-sm-7' : ' col-sm-12' }}">
+            <div>
+                <strong>Trumpai apie save</strong>
+            </div>
+            <div>{{ $cv->about }}</div>
+        </div>
+    @endif
+    @if ($withContacts && empty($pdf))
+        <div class="col-sm-5 comments">
+            @if ($comment = $cv->comments->first())
+            @endif
+            {{ Form::open(['route' => ['topCv.comments.store', $cv->id]]) }}
+                <div class="form-group">
+                    {!! Form::label('comment', '', ['class' => 'sr-only']) !!}
+                    {!!
+                        Form::textarea('comment',
+                            ($comment ?
+                                $comment->comment:
+                                null),
+                            ['rows' => 2,
+                            'placeholder' => 'Komentaras',
+                            'class' => 'form-control input-sm'])
+                    !!}
+                </div>
+
+                <div class="text-right">
+                    @if ($comment)
+                        <div style="display: inline-block;margin-right: 10px;">
+                            <strong>{{ $comment->user->firstname }}</strong>
+                            įrašė
+                            {{ $comment->created_at->format('Y-m-d') }}
+                        </div>
+                    @endif
+                    {!! Form::submit('Išsaugoti komentarą', ['class' => 'btn btn-sm btn-secondary']) !!}
+                </div>
+            {{ Form::close() }}
+        </div>
+    @endif
+</div>
+
 @if ($cv->studies->count())
     <table class="table">
         <tr>
@@ -52,9 +86,15 @@
                 <table class="table">
                     @foreach ($cv->studies as $s)
                         <tr class="separator">
-                            <td>{{ $s->study_date }}</td>
-                            <td><strong>{{ $s->institution }}</strong></td>
-                            <td>{{ $s->specialty }}</td>
+                            <td class="col21">
+                                {{ $s->study_date }}
+                                @if ($s->study_now)
+                                    - studijos tęsiamos
+                                @endif
+                            </td>
+                            <td>
+                                <strong>{{ $s->institution }}</strong>{{ ($s->specialty ? ", $s->specialty" : '') }}
+                            </td>
                         </tr>
                     @endforeach
                 </table>
@@ -73,7 +113,7 @@
                 <table class="table">
                     @foreach ($cv->works as $w)
                         <tr class="separator">
-                            <td style="padding-right: 15px">
+                            <td class="col21">
                                 <div>
                                     {{ $w->work_date }}
                                     @if ($w->work_now)
@@ -87,11 +127,22 @@
                                 @endif
                             </td>
                             <td>
-                                <strong>Kompanija neskelbiama</strong>{{ $w->work_position ? ', ' . $w->work_position : '' }}
+                                <strong>
+                                    @if (!$w->workplace_hide || $withContacts)
+                                        {{ $w->workplace }}
+                                    @else
+                                        ... (įmonė)
+                                    @endif
+                                </strong>
+                                <div>
+                                    @if (!$w->work_position_hide || $withContacts)
+                                        <strong>{{ $w->work_position }}</strong>
+                                    @else
+                                        &nbsp;
+                                    @endif
+                                </div>
+                                <div>{{ $w->work_task }}</div>
                             </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">{{ $w->work_task }}</td>
                         </tr>
                     @endforeach
                 </table>
@@ -107,7 +158,7 @@
                 Kalbų mokėjimas
             </td>
             <td class="col2">
-                <table>
+                <table class="table" style="width: auto">
                     @foreach ($cv->languages as $l)
                         @if ($l->first_language_id)
                             <tr class="first-language">
@@ -140,33 +191,37 @@
 @endif
 
 @if ($cv->cv_skills || $cv->cv_trainings || $cv->cv_certificates)
-    <table class="table">
-        <tr>
-            <td class="col1" width="150">
-                Profesiniai įgūdžiai<br>
-                Mokymai<br>
-                Sertifikatai<br>
-            </td>
-            <td class="col2">
-                <table class="table">
-                    @if ($cv->cv_skills)
-                        <tr class="separator">
-                            <td>{{ $cv->cv_skills }}</td>
-                        </tr>
-                    @endif
-                    @if ($cv->cv_trainings)
-                        <tr class="separator">
-                            <td>{{ $cv->cv_trainings }}</td>
-                        </tr>
-                    @endif
-                    @if ($cv->cv_certificates)
-                        <tr class="separator">
-                            <td>{{ $cv->cv_certificates }}</td>
-                        </tr>
-                    @endif
-                </table>
-            </td>
-        </tr>
+    <table class="table cv-skills">
+        @if ($cv->cv_skills)
+            <tr>
+                <td class="col1" width="150">
+                    Profesiniai įgūdžiai
+                </td>
+                <td class="col2">
+                    {!! nl2br(e($cv->cv_skills)) !!}
+                </td>
+            </tr>
+        @endif
+        @if ($cv->cv_trainings)
+            <tr>
+                <td class="col1" width="150">
+                    Mokymai
+                </td>
+                <td class="col2">
+                    {!! nl2br(e($cv->cv_trainings)) !!}
+                </td>
+            </tr>
+        @endif
+        @if ($cv->cv_certificates)
+            <tr>
+                <td class="col1" width="150">
+                    Sertifikatai
+                </td>
+                <td class="col2 last">
+                    {!! nl2br(e($cv->cv_certificates)) !!}
+                </td>
+            </tr>
+        @endif
     </table>
 @endif
 <table class="table">
@@ -179,7 +234,7 @@
             <table class="table">
                 @if ($cv->cv_info)
                     <tr class="separator">
-                        <td>{{ $cv->cv_info }}</td>
+                        <td>{!! nl2br(e($cv->cv_info)) !!}</td>
                     </tr>
                 @endif
                 @if ($cv->driving_license)
@@ -196,15 +251,15 @@
                             Atlyginimo lūkesčiai:
                             @if ($cv->salary_trial)
                                 <span>
-                                            {{ $cv->salary_trial }}
+                                    {{ $cv->salary_trial }}
                                     eur per bandomąjį
-                                        </span>
+                                </span>
                             @endif
                             @if ($cv->salary)
                                 <span>
-                                            {{ $cv->salary }}
+                                    {{ $cv->salary }}
                                     eur po bandomojo
-                                        </span>
+                                </span>
                             @endif
                         </td>
                     </tr>

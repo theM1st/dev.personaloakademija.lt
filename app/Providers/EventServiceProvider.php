@@ -22,8 +22,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\SomeEvent' => [
-            'App\Listeners\EventListener',
+        'Illuminate\Auth\Events\Login' => [
+            'App\Listeners\LogSuccessfulLogin',
         ],
     ];
 
@@ -82,6 +82,8 @@ class EventServiceProvider extends ServiceProvider
             $cv->studies()->delete();
             $cv->works()->delete();
 
+            $cv->categories()->sync(request()->get('scope_category_id'));
+
             $foreignLanguages = request()->get('foreign_language_id');
 
             if (request()->get('first_language_id')) {
@@ -113,6 +115,9 @@ class EventServiceProvider extends ServiceProvider
                         $study->institution = $name;
                         $study->study_date = request()->get('study_date')[$k];
                         $study->specialty = request()->get('specialty')[$k];
+                        if ($k == 0) {
+                            $study->study_now = request()->get('study_now')[$k];
+                        }
                         $cv->studies()->save($study);
                     }
                 }
@@ -123,8 +128,10 @@ class EventServiceProvider extends ServiceProvider
                     if ($name) {
                         $work = new TopCvWork;
                         $work->workplace = $name;
+                        $work->workplace_hide = empty(request()->get('workplace_hide')[$k]) ? 0 : 1;
                         $work->work_date = request()->get('work_date')[$k];
                         $work->work_position = request()->get('work_position')[$k];
+                        $work->work_position_hide = empty(request()->get('work_position_hide')[$k]) ? 0 : 1;
                         $work->work_task = request()->get('work_task')[$k];
 						if ($k == 0) {
 							$work->work_now = request()->get('work_now')[$k];
